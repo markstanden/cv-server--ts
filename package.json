@@ -12,6 +12,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@netlify/functions": "^2.7.0",
     "ramda": "^0.30.0"
   },
   "devDependencies": {
