@@ -10,7 +10,7 @@
     "format": "prettier --write \"src/**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx,md,css}\"",
     "lint": "eslint ./src --ext js,cjs,mjs,ts,cts,mts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest dev -c ./vitest.config.ts",
+    "test": "vitest -c ./vitest.config.ts",
     "integration": "vitest -c ./vitest.integration.config.ts"
   },
   "dependencies": {
