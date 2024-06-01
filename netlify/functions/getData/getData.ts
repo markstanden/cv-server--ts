@@ -1,7 +1,7 @@
 import type { Config, Context } from '@netlify/functions';
-import { ReadOnlyDataStore } from '../../../src/DataStore/ReadOnlyDataStore';
+import { ReadOnlyDataStore } from '../../../src/types/DataStore/ReadOnlyDataStore';
 import { constants } from 'node:http2';
-import { Sanitiser } from '../../../src/Sanatiser/Sanitiser';
+import { Sanitiser } from '../../../src/types/Sanatiser/Sanitiser';
 
 export default async function getData(
     _: Request,
