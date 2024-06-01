@@ -9,7 +9,8 @@
     "format": "prettier --write \"src/**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx,md,css}\"",
     "lint": "eslint ./src --ext js,cjs,mjs,ts,cts,mts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest dev -c ./vitest.config.ts",
+    "integration": "vitest -c ./vitest.integration.config.ts"
   },
   "dependencies": {
     "@netlify/functions": "^2.7.0",
@@ -23,6 +24,7 @@
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "autoprefixer": "latest",
+    "dotenv": "^16.4.5",
     "eslint": "latest",
     "eslint-config-prettier": "latest",
     "eslint-import-resolver-typescript": "latest",
