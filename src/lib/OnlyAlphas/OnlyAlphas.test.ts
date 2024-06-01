@@ -104,4 +104,40 @@ describe.concurrent('OnlyAlphas', async () => {
             );
         }
     );
+    describe.concurrent(
+        'given non alphanumeric characters with extended matchers',
+        async () => {
+            it.each([
+                ['ab-cd123', 'ab-cd123'],
+                ['ab_cd123', 'ab_cd123'],
+                ['abcd!123', 'abcd!123'],
+                ['abcd123', 'abcd123'],
+                ['abcd123', 'abcd123'],
+            ])(
+                'should return the input (%s) if the non-alphanumeric is in the additional matcher',
+                (input, expected) => {
+                    const onlyAlphas = OnlyAlphas.and(/[-_!]/);
+                    const result = onlyAlphas.sanitise(input);
+
+                    expect(result).toEqual(expected);
+                }
+            );
+
+            it.each([
+                ['ab^cd123', 'abcd123'],
+                ['ab$cd123', 'abcd123'],
+                ['abcd#123', 'abcd123'],
+                ['a@bcd123', 'abcd123'],
+                ['~abcd123', 'abcd123'],
+            ])(
+                'should return the input (%s) without illegal characters if the non-alphanumeric is not in the additional matcher',
+                (input, expected) => {
+                    const onlyAlphas = OnlyAlphas.and(/[-_!]/);
+                    const result = onlyAlphas.sanitise(input);
+
+                    expect(result).toEqual(expected);
+                }
+            );
+        }
+    );
 });

@@ -9,9 +9,10 @@ export default async function getData<TYPE>(
     _: Request,
     { params }: Context,
     dataStore: ReadOnlyDataStore<TYPE> = GithubRepoDataStore.createFromEnvironment<TYPE>(),
-    sanitiser: Sanitiser = new OnlyAlphas()
+    sanitiser: Sanitiser = OnlyAlphas.strict()
 ): Promise<Response> {
     const sanitisedId = sanitiser.sanitise(params.id);
+
     if (sanitisedId !== params.id) {
         return new Response(JSON.stringify({}), {
             status: constants.HTTP_STATUS_BAD_REQUEST,

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import getData from './getData';
 import { Context } from '@netlify/functions';
 import { ReadOnlyDataStore } from '../../../src/types/DataStore/ReadOnlyDataStore';
+import { OnlyAlphas } from '../../../src/lib/OnlyAlphas/OnlyAlphas';
 
 describe.concurrent('getData lambda function:', async () => {
     describe.concurrent('supplied path tests:', async () => {
@@ -13,7 +14,8 @@ describe.concurrent('getData lambda function:', async () => {
                 const response = await getData(
                     makeFakeRequestObject(),
                     makeContextStub(path),
-                    makeFakeDataStore()
+                    makeFakeDataStore(),
+                    OnlyAlphas.and(/[-_]/)
                 );
                 const responseBody = await response.json();
 
