@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc && vite build",
     "dev": "vite",
+    "nf": "netlify dev",
     "format": "prettier --write \"src/**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx,md,css}\"",
     "lint": "eslint ./src --ext js,cjs,mjs,ts,cts,mts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
@@ -13,8 +14,7 @@
     "integration": "vitest -c ./vitest.integration.config.ts"
   },
   "dependencies": {
-    "@netlify/functions": "^2.7.0",
-    "ramda": "^0.30.0"
+    "@netlify/functions": "^2.7.0"
   },
   "devDependencies": {
     "@happy-dom/jest-environment": "latest",
@@ -29,7 +29,7 @@
     "eslint-config-prettier": "latest",
     "eslint-import-resolver-typescript": "latest",
     "eslint-plugin-import": "latest",
-    "netlify-cli": "^17.23.8",
+    "netlify-cli": "^17.25.0",
     "postcss": "latest",
     "prettier": "latest",
     "prettier-plugin-tailwindcss": "latest",

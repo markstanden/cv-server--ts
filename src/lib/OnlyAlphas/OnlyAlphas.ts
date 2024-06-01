@@ -1,7 +1,7 @@
 import { Sanitiser } from '../../types/Sanatiser/Sanitiser.ts';
 
 export class OnlyAlphas implements Sanitiser {
-    protected readonly MATCHER = /[a-zA-Z0-9]/;
+    protected readonly MATCHER = /[a-zA-Z0-9-_]/;
 
     sanitise(input: string) {
         return input

@@ -59,7 +59,7 @@ describe.concurrent('OnlyAlphas', async () => {
         'given an input with a single non-alphanumeric character',
         async () => {
             it.each([
-                ['ab-cd', 'abcd'],
+                ['ab@cd', 'abcd'],
                 ['ab!cd', 'abcd'],
                 ['ab<cd', 'abcd'],
                 ['ab>cd', 'abcd'],

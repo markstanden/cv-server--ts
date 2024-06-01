@@ -21,7 +21,7 @@ describe.concurrent('getData lambda function:', async () => {
             }
         );
 
-        it.todo.each(['&test', 'test&test', 'test&'])(
+        it.each(['&test', 'test&test', 'test&'])(
             'single words paths with invalid characters (%s) anywhere in the path should return a "400 Bad Request" response',
             async (path) => {
                 const notExpected = { id: path };

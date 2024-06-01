@@ -15,22 +15,11 @@ export class GithubRepoDataStore<TYPE> implements ReadOnlyDataStore<TYPE> {
     readonly instanceTemplate: string;
 
     constructor({
-        /** The username of the owner of the GitHub repository */
-        userName = process.env.GITHUB_USERNAME ?? '',
-
-        /** The name of the private repository the file is stored in */
-        repoName = process.env.GITHUB_REPO ?? '',
-
-        /** The name of the directory the content is held in
-         * Can be empty if the file is in the root of the repo. */
-        basePath = process.env.GITHUB_REPO_DIRECTORY ?? '',
-
-        /** The filename to be retrieved from the repo */
-        filename = process.env.GITHUB_REPO_FILENAME ?? '',
-
-        /** Get the scoped GitHub API key from the environment variables.
-         * API key should be scoped to read only on the private content repository */
-        apiKey = process.env.GITHUB_API_KEY ?? '',
+        userName,
+        repoName,
+        basePath,
+        filename,
+        apiKey,
     }: {
         userName: string;
         repoName: string;
@@ -38,7 +27,7 @@ export class GithubRepoDataStore<TYPE> implements ReadOnlyDataStore<TYPE> {
         filename: string;
         apiKey: string;
     }) {
-        if (!userName || !repoName || !filename) {
+        if (!userName || !repoName || !filename || !apiKey) {
             throw Error('Invalid Arguments');
         }
 
@@ -52,6 +41,27 @@ export class GithubRepoDataStore<TYPE> implements ReadOnlyDataStore<TYPE> {
         )
             .replace('%REPO%', repoName)
             .replace('%FILEPATH%', `${filePath}`);
+    }
+
+    static createFromEnvironment<TYPE>() {
+        return new GithubRepoDataStore<TYPE>({
+            /** The username of the owner of the GitHub repository */
+            userName: process.env.GITHUB_USERNAME ?? '',
+
+            /** The name of the private repository the file is stored in */
+            repoName: process.env.GITHUB_REPO ?? '',
+
+            /** The name of the directory the content is held in
+             * Can be empty if the file is in the root of the repo. */
+            basePath: process.env.GITHUB_REPO_DIRECTORY ?? '',
+
+            /** The filename to be retrieved from the repo */
+            filename: process.env.GITHUB_REPO_FILENAME ?? '',
+
+            /** Get the scoped GitHub API key from the environment variables.
+             * API key should be scoped to read only on the private content repository */
+            apiKey: process.env.GITHUB_API_KEY ?? '',
+        });
     }
 
     getBasePath(basePath: string): string {
@@ -78,12 +88,16 @@ export class GithubRepoDataStore<TYPE> implements ReadOnlyDataStore<TYPE> {
                 'X-GitHub-Api-Version': this.GITHUB_API_VERSION,
             },
         });
-        const responseJSON = await response.json();
-        const content = atob(responseJSON.content);
 
+        const responseJSON = await response.json();
         if (!responseJSON.content) {
             return undefined;
         }
-        return content;
+
+        try {
+            return atob(responseJSON.content);
+        } catch (reason) {
+            return undefined;
+        }
     }
 }
