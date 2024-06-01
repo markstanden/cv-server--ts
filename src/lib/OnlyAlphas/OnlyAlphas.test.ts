@@ -8,7 +8,7 @@ describe.concurrent('OnlyAlphas', async () => {
             (input) => {
                 const expected = input;
 
-                const onlyAlphas = new OnlyAlphas();
+                const onlyAlphas = OnlyAlphas.strict();
                 const result = onlyAlphas.sanitise(input);
 
                 expect(result).toEqual(expected);
@@ -22,7 +22,7 @@ describe.concurrent('OnlyAlphas', async () => {
             (input) => {
                 const expected = input;
 
-                const onlyAlphas = new OnlyAlphas();
+                const onlyAlphas = OnlyAlphas.strict();
                 const result = onlyAlphas.sanitise(input);
 
                 expect(result).toEqual(expected);
@@ -47,7 +47,7 @@ describe.concurrent('OnlyAlphas', async () => {
             ])('should return the input (%s) unaltered', (input) => {
                 const expected = input;
 
-                const onlyAlphas = new OnlyAlphas();
+                const onlyAlphas = OnlyAlphas.strict();
                 const result = onlyAlphas.sanitise(input);
 
                 expect(result).toEqual(expected);
@@ -67,7 +67,7 @@ describe.concurrent('OnlyAlphas', async () => {
             ])(
                 'should return the input (%s) with the non-alpha character removed (%s)',
                 (input, expected) => {
-                    const onlyAlphas = new OnlyAlphas();
+                    const onlyAlphas = OnlyAlphas.strict();
                     const result = onlyAlphas.sanitise(input);
 
                     expect(result).toEqual(expected);
@@ -82,7 +82,7 @@ describe.concurrent('OnlyAlphas', async () => {
             ])(
                 'should remove non-alphas from anywhere in the input string (%s)',
                 (input, expected) => {
-                    const onlyAlphas = new OnlyAlphas();
+                    const onlyAlphas = OnlyAlphas.strict();
                     const result = onlyAlphas.sanitise(input);
 
                     expect(result).toEqual(expected);
@@ -96,7 +96,7 @@ describe.concurrent('OnlyAlphas', async () => {
             ])(
                 'should remove multiple non-alphas from anywhere in the input string (%s)',
                 (input, expected) => {
-                    const onlyAlphas = new OnlyAlphas();
+                    const onlyAlphas = OnlyAlphas.strict();
                     const result = onlyAlphas.sanitise(input);
 
                     expect(result).toEqual(expected);
