@@ -31,5 +31,5 @@ export default async function getData<TYPE>(
 }
 
 export const config: Config = {
-    path: '/:id',
+    path: '/api/v1/:id',
 };

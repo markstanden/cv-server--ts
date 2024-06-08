@@ -10,7 +10,7 @@ addEventListener('DOMContentLoaded', async () => {
       </div>
 `;
 
-    const res = await fetch('/full');
+    const res = await fetch('api/v1/full');
     const json = await res.json();
     console.log(json);
 });
