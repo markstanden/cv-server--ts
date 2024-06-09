@@ -1,7 +1,6 @@
 import { getFromApiFactory } from '../lib/getFromApi/getFromApi.ts';
 import { CV } from '../types/CV/CV.ts';
-
-export const API_BASE_PATH: string = '/api/v1';
+import { API_BASE_PATH } from '../constants.ts';
 
 /**
  * Returns a preconfigured function to retrieve CV data from the API
