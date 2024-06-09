@@ -1,5 +1,6 @@
 import { Link, Location, UserData } from '../../types/CV/CV.ts';
 import { Section } from './Section.ts';
+import { tw } from '../../tailwind/tw/tw.ts';
 
 export class UserDataSection implements Section {
     private readonly name: string;
@@ -19,44 +20,48 @@ export class UserDataSection implements Section {
     }
 
     render() {
-        return Section.createSection(`
-            <header class="headerBlock">
-                <section class="personal">
-                    <h1 class="applicantName">${this.name}</h1>
-                    <address class="applicantLocation">
-                        <ul>
-                            <li class="flex">
-                                <em class="info_title">Based: </em>
-                                <strong>${this.location.city}, ${this.location.country}</strong>
+        return Section.createSection(
+            `
+            <h1 class="${tw`border-b-2 border-b-indigo-700 text-3xl`}">${this.name}</h1>
+                <section class="${tw`flex flex-row`}">
+                    
+                    <address class="${tw`flex-grow`}">
+                        <ul class="${tw`flex flex-col text-base`}">
+                            <li class="${tw`flex`}">
+                                <strong class="${tw`min-w-16`}">Based: </strong>
+                                <em>${this.location.city}, ${this.location.country}</em>
                             </li>
-                            <li class="flex">
-                                <em class="info_title">Email: </em>
+                            <li class="${tw`flex`}">
+                                <strong class="${tw`min-w-16`}">Email: </strong>
                                 <a href="mailto:${this.contact.email}?subject=CV Review">${this.contact.email}</a>
                             </li>
-                            <li class="flex">
-                                <em class="info_title">Tel: </em>
+                            <li class="${tw`flex`}">
+                                <strong class="${tw`min-w-16`}">Tel: </strong>
                                 <a href="tel:${this.contact.phone}">${this.contact.phone}</a>
                             </li>
                         </ul>
                     </address>
+                
+                    <nav>
+                        <ul class="${tw`flex flex-grow flex-col items-end`}">
+                            ${this.links
+                                .map((link) => {
+                                    return `
+                                   <li class="${tw`flex flex-row`}">
+                                        <em class="${tw`mr-2`}">
+                                            <span class="${tw`flex flex-grow`}">${link.title}: </span>
+                                        </em>
+                                        <a href="${link.url}">${link.url.split('//')[1]}</a>
+                                    </li> 
+                                `;
+                                })
+                                .join('')}
+                        </ul>
+                    </nav>
+                    
                 </section>
-                <nav style="display: flex; flex-direction: column">
-                    <ul class="links">
-                        ${this.links
-                            .map((link) => {
-                                return `
-                               <li class="link-item">
-                                    <em class="info_title">
-                                        <span class="link-desc">${link.title}: </span>
-                                    </em>
-                                    <a href="${link.url}">${link.url}</a>
-                                </li> 
-                            `;
-                            })
-                            .join('')}
-                    </ul>
-                </nav>
-            </header>
-        `);
+        `,
+            'header'
+        );
     }
 }

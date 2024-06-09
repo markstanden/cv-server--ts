@@ -5,8 +5,8 @@ export class Section implements Renderable {
         return new Section();
     }
 
-    static createSection(content?: string): HTMLElement {
-        const section = document.createElement('section');
+    static createSection(content?: string, tagName = 'section'): HTMLElement {
+        const section = document.createElement(tagName);
         section.innerHTML = content ?? '';
         return section;
     }

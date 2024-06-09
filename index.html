@@ -11,122 +11,14 @@
             --leftColWidth: 20rem;
             --rightColWidth: 15rem;
             font-family: "Inter Light", sans-serif;
-            font-size: 85%;
             --color-impact: mediumblue;
             --base-indent: 1.5rem;
             --bar-spacing: 1rem;
         }
 
 
-        *,
-        *::before,
-        *::after {
-            -webkit-box-sizing: inherit;
-            box-sizing: inherit;
-            margin: 0;
-            padding: 0;
-        }
-
-
-        html {
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-        }
-
-
-        body {
-            font-weight: 300;
-            line-height: 1.8;
-        }
-
-
-        html {
-            background-color: white;
-            color: black;
-            margin: 1rem;
-        }
-
-
-        a {
-            color: inherit;
-            text-decoration: underline;
-            text-decoration-color: var(--color-impact);
-        }
-
-
-        h1 {
-            font-size: 1.9rem;
-            font-weight: 200;
-            line-height: 1.5;
-        }
-
-
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 200;
-            line-height: 1.5;
-        }
-
-
-        h3 {
-            font-size: 1.2rem;
-            font-weight: 300;
-            line-height: 1.4;
-        }
-
-
-        h4 {
-            font-size: 1.1rem;
-            font-weight: 200;
-            line-height: 1.4;
-        }
-
-
-        .main-wrapper {
-            max-width: 60rem;
-        }
-
-
-        .page-break {
-            margin-bottom: 10rem;
-        }
-
-
-        .headerBlock {
-            display: flex;
-            flex-direction: row
-        }
-
-
-        .personal {
-            flex-grow: 1;
-        }
-
-
-        .applicantLocation ul {
-            display: flex;
-            flex-direction: row;
-            font-size: 0.7rem;
-            font-style: normal;
-        }
-
-
-        .applicantLocation ul > li {
-            list-style: square;
-            margin: 0.9rem;
-        }
-
-
-        .applicantLocation ul > :first-child {
-            list-style: none;
-            margin-left: 0;
-        }
-
-
         .links {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
+
             font-size: 0.7rem;
             justify-content: center;
             line-height: 1.8;
@@ -143,11 +35,6 @@
         .link-item > a {
             flex-grow: 1;
             width: var(--rightColWidth);
-        }
-
-
-        .link-desc {
-            flex-grow: 1;
         }
 
 
@@ -239,7 +126,7 @@
 
         @media only print {
             :root {
-                font-size: 70%;
+                /*font-size: 70%;*/
             }
 
 
@@ -273,7 +160,7 @@
 
         @media only screen and (max-width: 75em) {
             html {
-                font-size: 70%;
+                /*font-size: 70%;*/
                 margin: 0;
                 max-width: 100vw;
             }
@@ -329,11 +216,6 @@
 
             .link-desc {
                 flex-grow: 1;
-            }
-
-
-            .flex {
-                display: flex;
             }
 
 
