@@ -4,8 +4,8 @@ export const API_BASE_PATH = '/api/v1';
 
 export async function getCVFactory(
     basePath: string = API_BASE_PATH,
-    fetcher = fetch
-) {
+    fetcher: (path: string) => Promise<Response> = fetch
+): Promise<(path: string) => Promise<CV>> {
     return async function getCV(path: string): Promise<CV> {
         const res = await fetcher(`${basePath}/${path}`);
         return (await res.json()) as CV;
