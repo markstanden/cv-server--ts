@@ -1,15 +1,18 @@
-import { CV } from '../types/CV/CV.ts';
-
 export const API_BASE_PATH = '/api/v1';
 
-export async function getCVFactory(
-    basePath: string = API_BASE_PATH,
-    fetcher: (path: string) => Promise<Response> = fetch
-): Promise<(path: string) => Promise<CV>> {
-    return async function getCV(path: string): Promise<CV> {
-        const res = await fetcher(`${basePath}/${path}`);
-        return (await res.json()) as CV;
+/**
+ * Factory method to create a
+ * @param basePath
+ * @param fetcher
+ */
+export async function getCVFactory<TYPE>(
+    fetcher: (path: string) => Promise<Response> = fetch,
+    basePath?: string
+): Promise<(path?: string) => Promise<TYPE>> {
+    return async function getCV(path?: string): Promise<TYPE> {
+        const response = await fetcher(`${basePath}/${path}`);
+        return (await response.json()) as TYPE;
     };
 }
 
-export const getCV = await getCVFactory(API_BASE_PATH, fetch);
+export const getCV = await getCVFactory(fetch, API_BASE_PATH);
