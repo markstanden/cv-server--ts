@@ -1,18 +1,19 @@
 {
-  "name": "ts_vite",
+  "name": "cv-server",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.1",
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",
-    "dev": "vite",
+    "dev": "netlify dev",
     "format": "prettier --write \"src/**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx,md,css}\"",
     "lint": "eslint ./src --ext js,cjs,mjs,ts,cts,mts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest -c ./vitest.config.ts",
+    "integration": "vitest -c ./vitest.integration.config.ts"
   },
   "dependencies": {
-    "ramda": "^0.30.0"
+    "@netlify/functions": "^2.7.0"
   },
   "devDependencies": {
     "@happy-dom/jest-environment": "latest",
@@ -22,10 +23,12 @@
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "autoprefixer": "latest",
+    "dotenv": "^16.4.5",
     "eslint": "latest",
     "eslint-config-prettier": "latest",
     "eslint-import-resolver-typescript": "latest",
     "eslint-plugin-import": "latest",
+    "netlify-cli": "^17.25.0",
     "postcss": "latest",
     "prettier": "latest",
     "prettier-plugin-tailwindcss": "latest",

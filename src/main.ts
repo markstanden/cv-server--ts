@@ -1,8 +1,13 @@
-import './tailwind.css';
-import { tw } from './lib/tw.ts';
+import './tailwind/tailwind.css';
+import { tw } from './tailwind/tw/tw.ts';
+import { getCvFromApi } from './frontend/getCvFromApi/getCvFromApi.ts';
 
-document.getElementById('app')!.innerHTML = `
-      <div class="${tw`w-20 border-2 border-red-700 px-2 py-1 text-center text-2xl text-red-700`}">
-        Test
+addEventListener('DOMContentLoaded', async () => {
+    const app = document.getElementById('app')!;
+
+    app.innerHTML = `
+      <div class="${tw` border-2 border-red-700 px-2 py-1`}">
+        ${JSON.stringify(await getCvFromApi('full'), null, 4)} 
       </div>
 `;
+});
