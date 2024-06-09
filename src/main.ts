@@ -1,6 +1,6 @@
 import './tailwind/tailwind.css';
 import { tw } from './tailwind/tw/tw.ts';
-import { getCvFromApi } from './frontend/getCvFromApi.ts';
+import { getCvFromApi } from './frontend/getCvFromApi/getCvFromApi.ts';
 
 addEventListener('DOMContentLoaded', async () => {
     const app = document.getElementById('app')!;

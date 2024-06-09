@@ -1,6 +1,6 @@
 import { ReadOnlyDataStore } from '../types/DataStore/ReadOnlyDataStore.ts';
 
-export class GithubRepoDataStore<TYPE> implements ReadOnlyDataStore<TYPE> {
+export class GithubRepoDataStore<DATA> implements ReadOnlyDataStore<DATA> {
     /** The custom media type supplied by responses from the GitHub API */
     readonly GITHUB_JSON_MEDIA_TYPE: string = 'application/vnd.github.v3+json';
 
@@ -68,20 +68,20 @@ export class GithubRepoDataStore<TYPE> implements ReadOnlyDataStore<TYPE> {
         return basePath ? `${basePath}/` : '';
     }
 
-    public async getByID(id: string): Promise<TYPE | undefined> {
+    public async getByID(id: string): Promise<DATA | undefined> {
         const content = await this.getContent(id);
         if (!content) {
             return;
         }
-        return JSON.parse(content) as TYPE;
+        return JSON.parse(content) as DATA;
     }
 
-    protected getRequestURL(id: string): string {
-        return this.instanceTemplate.replace('%BRANCH%', id);
+    protected getRequestURL(branch: string): string {
+        return this.instanceTemplate.replace('%BRANCH%', branch);
     }
 
-    protected async getContent(id: string): Promise<string | undefined> {
-        const response = await fetch(this.getRequestURL(id), {
+    protected async getContent(branch: string): Promise<string | undefined> {
+        const response = await fetch(this.getRequestURL(branch), {
             headers: {
                 'Authorization': `Bearer ${this.apiKey}`,
                 'Accept': this.GITHUB_JSON_MEDIA_TYPE,
