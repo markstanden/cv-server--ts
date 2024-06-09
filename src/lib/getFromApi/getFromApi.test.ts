@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getCVFactory } from './getCV.ts';
+import { getFromApiFactory } from './getFromApi.ts';
 
 function fakeFetcher() {
     let calledWith: string | undefined;
@@ -31,7 +31,7 @@ describe.concurrent('getCV', async () => {
         it.concurrent('fetcher called with correct path', async () => {
             const mockFetcher = fakeFetcher();
 
-            const getCV = await getCVFactory<object>(
+            const getCV = await getFromApiFactory<object>(
                 mockFetcher.fetch,
                 basePath
             );
@@ -43,7 +43,7 @@ describe.concurrent('getCV', async () => {
         it.concurrent(
             'should return return pojo with expected result',
             async ({ expect }) => {
-                const getCV = await getCVFactory<{ path: string }>(
+                const getCV = await getFromApiFactory<{ path: string }>(
                     fakeFetcher().fetch,
                     basePath
                 );
