@@ -5,6 +5,348 @@
     <link href="/icons/vite.svg" rel="icon" type="image/svg+xml" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Vite + TS</title>
+    <style>
+        :root {
+            --itemTitleColWidth: 10rem;
+            --leftColWidth: 20rem;
+            --rightColWidth: 15rem;
+            font-family: "Inter Light", sans-serif;
+            font-size: 85%;
+            --color-impact: mediumblue;
+            --base-indent: 1.5rem;
+            --bar-spacing: 1rem;
+        }
+
+
+        *,
+        *::before,
+        *::after {
+            -webkit-box-sizing: inherit;
+            box-sizing: inherit;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        html {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+
+        html {
+            background-color: white;
+            color: black;
+            margin: 1rem;
+        }
+
+
+        a {
+            color: inherit;
+            text-decoration: underline;
+            text-decoration-color: var(--color-impact);
+        }
+
+
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 200;
+            line-height: 1.5;
+        }
+
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 200;
+            line-height: 1.5;
+        }
+
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+
+        h4 {
+            font-size: 1.1rem;
+            font-weight: 200;
+            line-height: 1.4;
+        }
+
+
+        .main-wrapper {
+            max-width: 60rem;
+        }
+
+
+        .page-break {
+            margin-bottom: 10rem;
+        }
+
+
+        .headerBlock {
+            display: flex;
+            flex-direction: row
+        }
+
+
+        .personal {
+            flex-grow: 1;
+        }
+
+
+        .applicantLocation ul {
+            display: flex;
+            flex-direction: row;
+            font-size: 0.7rem;
+            font-style: normal;
+        }
+
+
+        .applicantLocation ul > li {
+            list-style: square;
+            margin: 0.9rem;
+        }
+
+
+        .applicantLocation ul > :first-child {
+            list-style: none;
+            margin-left: 0;
+        }
+
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            font-size: 0.7rem;
+            justify-content: center;
+            line-height: 1.8;
+            list-style: none;
+            text-align: right;
+        }
+
+
+        .link-item {
+            display: flex;
+        }
+
+
+        .link-item > a {
+            flex-grow: 1;
+            width: var(--rightColWidth);
+        }
+
+
+        .link-desc {
+            flex-grow: 1;
+        }
+
+
+        .section-header {
+            border-bottom: 2px solid var(--color-impact);
+            line-height: 1.15;
+            margin: 0.8rem 0 0.5rem 0;
+            width: 100%;
+        }
+
+
+        .position-bullets {
+            margin-left: var(--base-indent);
+        }
+
+
+        .with-bar {
+            border-left: 1px solid var(--color-impact);
+            margin-left: calc(var(--base-indent) - var(--bar-spacing));
+            padding-left: var(--bar-spacing);
+        }
+
+
+        .with-bar > .bulleted-content {
+            list-style: none;
+            padding-left: 0;
+        }
+
+
+        .position-header {
+            align-items: baseline;
+            display: flex;
+            flex-direction: row;
+            margin: 0.2rem 0 0.2rem 0;
+            width: 100%;
+        }
+
+
+        .dates {
+            text-align: right;
+            width: var(--rightColWidth);
+        }
+
+
+        .position-title {
+            align-items: baseline;
+            display: flex;
+            flex-direction: row;
+            flex-grow: 1;
+        }
+
+
+        .position-title > h3 {
+            font-weight: bolder;
+            width: var(--leftColWidth);
+        }
+
+
+        .position-title > .position-company {
+            flex-grow: 1;
+        }
+
+
+        .item {
+            display: flex;
+            flex-direction: row;
+            list-style: none;
+            width: 100%;
+        }
+
+
+        .vertically-spaced {
+            margin-bottom: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+
+        .item-title {
+            font-size: 1rem;
+            font-weight: bold;
+            min-width: var(--itemTitleColWidth);
+        }
+
+
+        .item-content {
+            flex-grow: 1;
+        }
+
+
+        @media only print {
+            :root {
+                font-size: 70%;
+            }
+
+
+            body {
+                line-height: 1.7;
+            }
+
+
+            html {
+                margin: 0 auto 0 auto;
+            }
+
+
+            .section-wrapper {
+                page-break-inside: avoid;
+            }
+
+
+            .vertically-spaced {
+                margin-bottom: 0.2rem;
+                margin-top: 0.2rem;
+            }
+
+
+            .page-break {
+                margin-bottom: 0;
+                page-break-before: always;
+            }
+        }
+
+
+        @media only screen and (max-width: 75em) {
+            html {
+                font-size: 70%;
+                margin: 0;
+                max-width: 100vw;
+            }
+
+
+            .main-wrapper {
+                max-width: 100%;
+            }
+
+
+            .headerBlock {
+                flex-direction: column;
+            }
+
+
+            .personal {
+                flex-grow: 0;
+            }
+
+
+            .applicantLocation ul {
+                flex-direction: column;
+                font-size: 1rem;
+            }
+
+
+            .applicantLocation ul > li, .applicantLocation ul > :first-child {
+                list-style: square;
+                margin: 0;
+            }
+
+
+            .links {
+                flex-direction: column;
+                flex-grow: 0;
+                font-size: 1rem;
+                justify-content: left;
+                line-height: 1.8;
+                list-style: square;
+                text-align: left;
+            }
+
+
+            .link-item {
+                display: flex;
+            }
+
+
+            .link-item > a {
+                width: 75%;
+            }
+
+
+            .link-desc {
+                flex-grow: 1;
+            }
+
+
+            .flex {
+                display: flex;
+            }
+
+
+            .info_title {
+                min-width: 5rem;
+            }
+
+
+            .position-title {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
 <div id="app"></div>
