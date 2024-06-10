@@ -28,7 +28,7 @@ export class CoverLetterSection implements Section {
 
     render() {
         return Section.createSection(`
-            <article class="${tw`section-wrapper mx-auto mb-20 flex max-w-4xl flex-col self-center print:break-after-page`}">
+            <article class="${tw`avoid-page-break mx-auto mb-20 flex max-w-4xl flex-col self-center print:mb-0 print:break-after-page`}">
                 <div class="${tw`flex justify-end`}"> 
                     <address class="${tw`max-w-max text-right`}"> 
                         <p>${this.name},</p>

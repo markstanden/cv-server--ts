@@ -1,5 +1,6 @@
 import { Experience, Location } from '../../types/CV/CV.ts';
 import { Section } from './Section.ts';
+import { tw } from '../../tailwind/tw/tw.ts';
 
 export class ExperienceSection implements Section {
     private readonly title: string;
@@ -26,24 +27,24 @@ export class ExperienceSection implements Section {
 
     render() {
         return Section.createSection(`
-        <h2 class="section-header">${this.title}</h2>
+        <h2 class="${tw`mb-1 mt-1.5 border-b-2 border-b-indigo-700`}">${this.title}</h2>
         ${this.items
             .map(
                 (item) => `
-            <article class="vertically-spaced">
-                <div class="position-header">
-                    <div class="position-title">
-                        <h3><strong>${item.title}</strong></h3>
-                        <h4 class="position-company"><em>${item.business.title}, ${item.business.location.city}</em>
+            <article class="${tw`my-2 print:my-1`}">
+                <div class="${tw`mb-0.5 mt-1.5 flex flex-row`}">
+                    <div class="${tw`flex flex-grow flex-col print:flex-row`}">
+                        <h3 class="${tw`w-72 font-bold`}">${item.title}</h3>
+                        <h4 class="${tw`flex-grow`}"><em>${item.business.title}, ${item.business.location.city}</em>
                         </h4>
                     </div>
-                    <p class="dates"><strong>${item.dates}</strong></p>
+                    <p class="${tw`font-bold`}">${item.dates}</p>
                 </div>
-                <ul class="position-bullets">
+                <ul class="${tw`position-bullets`}">
                 ${item.content
                     .map(
                         (point) => `
-                   <li class="bulleted-content">${point}</li> 
+                   <li class="${tw`bulleted-content`}">${point}</li> 
                 `
                     )
                     .join('')}

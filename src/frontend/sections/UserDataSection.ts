@@ -22,7 +22,7 @@ export class UserDataSection implements Section {
     render() {
         return Section.createSection(
             `
-            <h1 class="${tw`border-b-2 border-b-indigo-700 text-3xl`}">${this.name}</h1>
+            <h1 class="${tw`mb-1 border-b-2 border-b-indigo-700 text-3xl`}">${this.name}</h1>
                 <section class="${tw`flex flex-row`}">
                     
                     <address class="${tw`flex-grow`}">

@@ -21,7 +21,7 @@ export class GeneralSection implements Section {
 
     render() {
         return Section.createSection(`
-        <h2 class="section-header">${this.title}</h2>
+        <h2 class="border-b-2 border-b-indigo-700 mt-1.5 mb-1">${this.title}</h2>
             ${this.items
                 .map(
                     (item) =>

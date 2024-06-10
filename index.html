@@ -16,6 +16,9 @@
             --bar-spacing: 1rem;
         }
 
+        .avoid-page-break {
+            page-break-inside: avoid;
+        }
 
         .links {
 
@@ -39,10 +42,7 @@
 
 
         .section-header {
-            border-bottom: 2px solid var(--color-impact);
-            line-height: 1.15;
-            margin: 0.8rem 0 0.5rem 0;
-            width: 100%;
+            /*  border-b-2 border-b-indigo-700 mt-1.5 mb-1*/
         }
 
 
@@ -61,15 +61,6 @@
         .with-bar > .bulleted-content {
             list-style: none;
             padding-left: 0;
-        }
-
-
-        .position-header {
-            align-items: baseline;
-            display: flex;
-            flex-direction: row;
-            margin: 0.2rem 0 0.2rem 0;
-            width: 100%;
         }
 
 
@@ -106,12 +97,6 @@
         }
 
 
-        .vertically-spaced {
-            margin-bottom: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-
         .item-title {
             font-size: 1rem;
             font-weight: bold;
@@ -140,21 +125,6 @@
             }
 
 
-            .section-wrapper {
-                page-break-inside: avoid;
-            }
-
-
-            .vertically-spaced {
-                margin-bottom: 0.2rem;
-                margin-top: 0.2rem;
-            }
-
-
-            .page-break {
-                margin-bottom: 0;
-                page-break-before: always;
-            }
         }
 
 
