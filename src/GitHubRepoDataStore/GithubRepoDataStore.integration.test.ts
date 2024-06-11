@@ -1,9 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { GithubRepoDataStore } from './GithubRepoDataStore.ts';
-import { configDotenv } from 'dotenv';
 import { CV } from '../types/CV/CV.ts';
-
-configDotenv({ path: './.env.local' });
 
 function makeGithubDataStoreFromEnvironment<TYPE>() {
     return new GithubRepoDataStore<TYPE>({
@@ -53,7 +50,7 @@ describe.concurrent('GithubRepoDataStore', async () => {
             ])(
                 'environment variable %s should be available',
                 async (envKey) => {
-                    const result = import.meta.env[envKey];
+                    const result = process.env[envKey];
 
                     expect(result).toBeTruthy();
                 }

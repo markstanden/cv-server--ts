@@ -2,10 +2,12 @@ export interface CV {
     user: UserData;
     coverLetter: CoverLetter;
     experienceSection: Experience;
-    sections: Section[];
+    sections: General[];
 }
 
-export interface UserData {
+export interface CVSection {}
+
+export interface UserData extends CVSection {
     name: string;
     location: Location;
     contact: {
@@ -15,13 +17,13 @@ export interface UserData {
     links: Link[];
 }
 
-export interface CoverLetter {
+export interface CoverLetter extends CVSection {
     greeting: string;
     text: string[];
     signOff: string;
 }
 
-export interface Experience {
+export interface Experience extends CVSection {
     title: string;
     items: {
         title: string;
@@ -36,7 +38,7 @@ export interface Experience {
     }[];
 }
 
-export interface Section {
+export interface General extends CVSection {
     title: string;
     items: {
         title: string;
