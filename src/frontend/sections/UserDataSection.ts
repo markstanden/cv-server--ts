@@ -22,36 +22,34 @@ export class UserDataSection implements Section {
     render() {
         return Section.createSection(
             `
-            <h1 class="${tw`mb-1 border-b-2 border-b-indigo-700 text-3xl`}">${this.name}</h1>
-                <section class="${tw`flex flex-row`}">
+            <h1 class="${tw`mb-1 mt-6 border-b-2 border-b-indigo-700 text-2xl/8 print:mt-0 print:text-base/6`}">${this.name}</h1>
+                <section class="${tw`flex flex-col sm:flex-row`}">
                     
                     <address class="${tw`flex-grow`}">
-                        <ul class="${tw`flex flex-col text-base`}">
-                            <li class="${tw`flex`}">
-                                <strong class="${tw`min-w-16`}">Based: </strong>
-                                <em>${this.location.city}, ${this.location.country}</em>
+                        <ul class="${tw`flex flex-col print:text-xs/4`}">
+                            <li class="${tw`inline-grid grid-cols-2 gap-4 sm:grid-cols-[8rem_auto] print:grid-cols-[4rem_auto]`}">
+                                <strong class="${tw``}">Based:</strong>
+                                ${this.location.city}, ${this.location.country}</em>
                             </li>
-                            <li class="${tw`flex`}">
-                                <strong class="${tw`min-w-16`}">Email: </strong>
-                                <a href="mailto:${this.contact.email}?subject=CV Review">${this.contact.email}</a>
+                            <li class="${tw`inline-grid grid-cols-2 gap-4 sm:grid-cols-[8rem_auto] print:grid-cols-[4rem_auto]`}">
+                                <strong class="${tw``}">Email:</strong>
+                                <a class="${tw``}" href="mailto:${this.contact.email}?subject=CV Review">${this.contact.email}</a>
                             </li>
-                            <li class="${tw`flex`}">
-                                <strong class="${tw`min-w-16`}">Tel: </strong>
-                                <a href="tel:${this.contact.phone}">${this.contact.phone}</a>
+                            <li class="${tw`inline-grid grid-cols-2 gap-4 sm:grid-cols-[8rem_auto] print:grid-cols-[4rem_auto]`}">
+                                <strong class="${tw``}">Tel: </strong>
+                                <a class="${tw``}" href="tel:${this.contact.phone}">${this.contact.phone}</a>
                             </li>
                         </ul>
                     </address>
                 
                     <nav>
-                        <ul class="${tw`flex flex-grow flex-col items-end`}">
+                        <ul class="${tw`mt-2 flex flex-col sm:mt-0 sm:flex-grow print:text-xs/4`}">
                             ${this.links
                                 .map((link) => {
                                     return `
-                                   <li class="${tw`flex flex-row`}">
-                                        <em class="${tw`mr-2`}">
-                                            <span class="${tw`flex flex-grow`}">${link.title}: </span>
-                                        </em>
-                                        <a href="${link.url}">${link.url.split('//')[1]}</a>
+                                   <li class="${tw`inline-grid grid-cols-2 gap-4`}">
+                                        <strong class="${tw`font-bold sm:text-right`}">${link.title}:</strong>
+                                        <a class="${tw`break-words sm:text-right print:whitespace-break-spaces`}" href="${link.url}">${link.url.split('//')[1]}</a>
                                     </li> 
                                 `;
                                 })

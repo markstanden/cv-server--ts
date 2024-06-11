@@ -1,4 +1,5 @@
 import { Renderable } from '../../types/Renderable/Renderable.ts';
+import { tw } from '../../tailwind/tw/tw.ts';
 
 export class Section implements Renderable {
     static create(): Section {
@@ -7,7 +8,9 @@ export class Section implements Renderable {
 
     static createSection(content?: string, tagName = 'section'): HTMLElement {
         const section = document.createElement(tagName);
+
         section.innerHTML = content ?? '';
+        section.className = tw`m-0`;
         return section;
     }
 

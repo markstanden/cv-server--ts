@@ -27,26 +27,24 @@ export class ExperienceSection implements Section {
 
     render() {
         return Section.createSection(`
-        <h2 class="${tw`mb-1 mt-1.5 border-b-2 border-b-indigo-700`}">${this.title}</h2>
+        <h2 class="${tw`mb-1 mt-6 border-b-2 border-b-indigo-700 text-xl/8 print:mt-1 print:text-base/6`}">${this.title}</h2>
         ${this.items
             .map(
                 (item) => `
             <article class="${tw`my-2 print:my-1`}">
-                <div class="${tw`mb-0.5 mt-1.5 flex flex-row`}">
-                    <div class="${tw`flex flex-grow flex-col print:flex-row`}">
-                        <h3 class="${tw`w-72 font-bold`}">${item.title}</h3>
-                        <h4 class="${tw`flex-grow`}"><em>${item.business.title}, ${item.business.location.city}</em>
-                        </h4>
+                <div class="${tw`mb-0.5 ml-0.5 mt-1.5 flex flex-col sm:flex-row print:text-sm/5`}">
+                    <div class="${tw`flex flex-grow flex-col print:flex-row print:align-middle print:text-base/5`}">
+                        <h3 class="${tw`text-lg font-bold print:text-sm/5`}">${item.title}</h3>
+                        <span class="${tw`hidden print:mx-2 print:inline-block`}">//</span>
+                        <span class="${tw`flex-grow print:text-sm/5`}">
+                            <em>${item.business.title}, ${item.business.location.city}</em>
+                        </span>
                     </div>
-                    <p class="${tw`font-bold`}">${item.dates}</p>
+                    <p class="${tw`font-bold print:text-sm/5`}">${item.dates}</p>
                 </div>
-                <ul class="${tw`position-bullets`}">
+                <ul class="${tw`ml-0.5 border-l-2 border-indigo-700 pl-2 sm:border-l-2 print:text-xs/4`}">
                 ${item.content
-                    .map(
-                        (point) => `
-                   <li class="${tw`bulleted-content`}">${point}</li> 
-                `
-                    )
+                    .map((point) => `<li class="${tw``}">${point}</li>`)
                     .join('')}
                 </ul>
             </article> 
