@@ -11,7 +11,7 @@ addEventListener('DOMContentLoaded', async () => {
     app.className = tw`mx-auto max-w-5xl`;
 
     const { coverLetter, user, experienceSection, sections } =
-        await getCvFromApi('seasalt');
+        await getCvFromApi(window.location.pathname.split('/')[1]);
 
     app.appendChild(CoverLetterSection.create(coverLetter, user).render());
 
