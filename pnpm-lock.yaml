@@ -63,6 +63,9 @@ importers:
       typescript:
         specifier: latest
         version: 5.4.5
+      vite:
+        specifier: latest
+        version: 5.3.1(@types/node@20.14.2)
       vitest:
         specifier: latest
         version: 1.6.0(@types/node@20.14.2)(happy-dom@14.12.0)
