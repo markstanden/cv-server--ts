@@ -29,7 +29,7 @@
     "eslint-config-prettier": "latest",
     "eslint-import-resolver-typescript": "latest",
     "eslint-plugin-import": "latest",
-    "netlify-cli": "^17.25.0",
+    "netlify-cli": "^17.27.0",
     "postcss": "latest",
     "prettier": "latest",
     "prettier-plugin-tailwindcss": "latest",

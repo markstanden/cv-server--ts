@@ -46,7 +46,7 @@ importers:
         specifier: latest
         version: 2.29.1(@typescript-eslint/parser@7.13.0(eslint@9.5.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1)(eslint@9.5.0)
       netlify-cli:
-        specifier: ^17.25.0
+        specifier: ^17.27.0
         version: 17.27.0(@types/node@20.14.2)
       postcss:
         specifier: latest
