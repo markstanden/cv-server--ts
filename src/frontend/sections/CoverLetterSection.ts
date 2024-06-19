@@ -28,9 +28,9 @@ export class CoverLetterSection implements Section {
 
     render() {
         return Section.createSection(`
-            <article class="${tw`avoid-page-break mx-auto mb-20 flex max-w-4xl flex-col self-center print:mb-0 print:break-after-page`}">
+            <article class="${tw`avoid-page-break mx-auto mb-20 flex max-w-4xl flex-col self-center print:mb-0 print:break-after-page print:text-sm`}">
                 <div class="${tw`flex justify-end`}"> 
-                    <address class="${tw`max-w-max text-right`}"> 
+                    <address class="${tw`mb-8 max-w-max text-right`}"> 
                         <p>${this.name},</p>
                         <p>${this.location.city},</p>
                         <p>${this.location.country}.</p>
@@ -47,15 +47,15 @@ export class CoverLetterSection implements Section {
                     ${this.text
                         .map((paragraph) => {
                             return `
-                            <p class="${tw`my-4 first-of-type:ml-8`}">
+                            <p class="${tw`my-3 first-of-type:ml-4`}">
                                 ${paragraph}
                             </p> 
                         `;
                         })
                         .join('')}
                 </div>
-                <p>${this.signOff}</p>
-                <p class="signature">${this.name}</p>
+                <p class="mt-8">${this.signOff}</p>
+                <p>${this.name}</p>
             </article>
         `);
     }
