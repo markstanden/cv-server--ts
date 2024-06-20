@@ -2,11 +2,16 @@
   framework = "vite"
   autoLaunch = true
 
+[build]
+command = 'npm run build'
+environment = {NODE_VERSION = '20'}
+publish = 'dist'
+
 [[redirects]]
 force = true
 from = '/api/*'
 status = 200
-to = '/.netlify/functions/api/:splat'
+to = '/api/:splat'
 
 [[redirects]]
 from = '/*'
