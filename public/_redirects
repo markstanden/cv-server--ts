@@ -1,2 +1,5 @@
 # Use the application side router.
 /* /index.html 200
+
+# But not for the api
+/api/* /.netlify/functions/getData/:id 200
