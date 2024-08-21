@@ -12,7 +12,6 @@ export default async function getData<TYPE>(
     sanitiser: Sanitiser = OnlyAlphas.strict()
 ): Promise<Response> {
     const sanitisedId = sanitiser.sanitise(params.id);
-
     if (sanitisedId !== params.id) {
         return new Response(JSON.stringify({}), {
             status: constants.HTTP_STATUS_BAD_REQUEST,
@@ -20,7 +19,6 @@ export default async function getData<TYPE>(
     }
 
     const data = await dataStore?.getByID(sanitisedId);
-
     if (!data) {
         return new Response(JSON.stringify({}), {
             status: constants.HTTP_STATUS_INTERNAL_SERVER_ERROR,
