@@ -80,7 +80,7 @@ export class GithubRepoDataStore<DATA> implements ReadOnlyDataStore<DATA> {
     }
 
     protected replaceContentPlaceholders(content: string, id: string): string {
-        return content.replace('%BRANCH%', id);
+        return content.replace('%BRANCH_NAME%', id);
     }
 
     protected getRequestURL(branch: string): string {
