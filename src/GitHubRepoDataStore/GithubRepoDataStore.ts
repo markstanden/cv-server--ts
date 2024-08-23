@@ -73,7 +73,14 @@ export class GithubRepoDataStore<DATA> implements ReadOnlyDataStore<DATA> {
         if (!content) {
             return;
         }
-        return JSON.parse(content) as DATA;
+
+        const removePlaceholders = this.replaceContentPlaceholders(content, id);
+
+        return JSON.parse(removePlaceholders) as DATA;
+    }
+
+    protected replaceContentPlaceholders(content: string, id: string): string {
+        return content.replace('%BRANCH_NAME%', id);
     }
 
     protected getRequestURL(branch: string): string {

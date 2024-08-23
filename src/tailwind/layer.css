@@ -1,0 +1,29 @@
+@layer base {
+    @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("../fonts/inter.ttf");
+    }
+
+    @font-face {
+        font-family: "Inter Light";
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url("../fonts/inter.ttf");
+    }
+
+    @font-face {
+        font-family: "Inter Bold";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url("../fonts/inter.ttf");
+    }
+
+    html {
+        font-family: "Inter", system-ui, sans-serif;
+    }
+}
