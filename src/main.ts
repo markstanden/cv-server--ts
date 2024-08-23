@@ -8,7 +8,7 @@ import { CoverLetterSection } from './frontend/sections/CoverLetterSection.ts';
 
 addEventListener('DOMContentLoaded', async () => {
     const app = document.getElementById('app')!;
-    app.className = tw`mx-auto max-w-5xl`;
+    app.className = tw`mx-4 max-w-5xl`;
 
     const { coverLetter, user, experienceSection, sections } =
         await getCvFromApi(window.location.pathname.split('/')[1]);
