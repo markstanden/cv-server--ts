@@ -1,5 +1,5 @@
 import { getFromApiFactory } from '../../lib/getFromApi/getFromApi.ts';
-import { CV } from '../../types/CV/CV.ts';
+import type { CV } from '../../types/CV/CV.ts';
 import { API_BASE_PATH } from '../../constants.ts';
 
 /**
