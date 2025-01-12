@@ -79,11 +79,11 @@ npm run dev
 src/
 ├── GitHubRepoDataStore/    # GitHub data fetching implementation
 ├── frontend/               # Frontend components and rendering logic
-│   ├── sections/          # CV section components
-│   └── renderPage/        # Main page rendering logic
-├── lib/                   # Utility functions and helpers
-├── types/                 # TypeScript type definitions
-└── tailwind/             # Tailwind CSS configuration and utilities
+│   ├── sections/           # CV section components
+│   └── renderPage/         # Main page rendering logic
+├── lib/                    # Utility functions and helpers
+├── types/                  # TypeScript type definitions
+└── tailwind/               # Tailwind CSS configuration and utilities
 ```
 
 ## Strategic Benefits
@@ -114,20 +114,20 @@ The branch name becomes part of the final URL (e.g., `cv.example.com/branch-name
 
 ## Output Format
 
-The CV server generates two main views:
+The CV server generates two main pages:
 
-1. A cover letter view that includes:
+1. A cover letter page that includes:
    - Your contact details in a right-aligned header
    - A formal letter format with greeting, body paragraphs, and sign-off
    - Professional spacing and typography
 
-2. A CV view that includes:
+2. A CV page that includes:
    - Your name and contact details in a clean header
    - Work experience with indented content and clear date positioning
    - Skills and education in a structured format
    - Project links and descriptions
 
-Both views are responsive and print-friendly, using Tailwind CSS for styling.
+Both pages are designed to be responsive and printer-friendly (looks great as a PDF too), using Tailwind CSS for styling.
 
 ## Development
 
