@@ -129,6 +129,188 @@ The CV server generates two main pages:
 
 Both pages are designed to be responsive and printer-friendly (looks great as a PDF too), using Tailwind CSS for styling.
 
+## CV Data Format
+
+### Schema
+
+The CV data should be stored in your GitHub repository as a JSON file with the following structure:
+
+```typescript
+interface CV {
+    user: UserData;
+    coverLetter: CoverLetter;
+    experienceSection: Experience;
+    sections: General[];
+}
+```
+
+### Example JSON
+
+Here's a complete example of the expected data structure (remove comments in your live version)
+
+```json
+{
+    "user": {
+        "name": "Firstname Surname",
+        "location": {
+            // City name or "Remote"
+            "city": "London",
+            "country": "UK"
+        },
+        "contact": {
+            // International format recommended
+            "phone": "+44 1234 567890",
+            "email": "firstname.surname@example.com"
+        },
+        // Professional links shown in header
+        "links": [
+            {
+                // Display name for the link
+                "title": "Portfolio",
+                // Must include https://
+                "url": "https://www.portfolio-example.com"
+            },
+            {
+                "title": "Github",
+                "url": "https://www.github.com/username"
+            }
+        ]
+    },
+    "coverLetter": {
+        "greeting": "Dear Hiring Manager",
+        // Each array item becomes a paragraph
+        "text": [
+            "This is the first paragraph of your cover letter.",
+            "The second paragraph typically details relevant experience and skills.",
+            "The final paragraph can discuss specific interest in the role or company."
+        ],
+        "signOff": "Kind regards"
+    },
+    "experienceSection": {
+        "title": "Work Experience",
+        "items": [
+            {
+                "title": "Current Role",
+                "business": {
+                    "title": "Tech Solutions Ltd",
+                    "link": "https://www.techsolutions-example.com",
+                    "location": {
+                        "city": "Remote",
+                        "country": "UK"
+                    },
+                    "department": "Engineering"
+                },
+                "dates": "2022 - Present",
+                "content": [
+                    "Primary responsibility or achievement in the role",
+                    "Secondary responsibility, typically including specific technologies used",
+                    "Team-related responsibilities or collaborative achievements",
+                    "Quantifiable achievement with metrics where possible"
+                ]
+            },
+            {
+                "title": "Second Role",
+                "business": {
+                    "title": "Second Company",
+                    "link": "https://www.second-company-example.com",
+                    "location": {
+                        "city": "Remote",
+                        "country": "UK"
+                    },
+                    "department": "Development"
+                },
+                "dates": "2020 - 2022",
+                "content": [
+                    "Primary responsibility or achievement in the role",
+                    "Secondary responsibility, typically including specific technologies used",
+                    "Team-related responsibilities or collaborative achievements",
+                    "Quantifiable achievement with metrics where possible"
+                ]
+            },
+            {
+                "title": "First Role",
+                "business": {
+                    "title": "First Company",
+                    "location": {
+                        "city": "Remote",
+                        "country": "UK"
+                    },
+                    "department": "Technology"
+                },
+                "dates": "2018 - 2020",
+                "content": [
+                    "Primary responsibility or achievement in the role",
+                    "Secondary responsibility, typically including specific technologies used",
+                    "Team-related responsibilities or collaborative achievements",
+                    "Quantifiable achievement with metrics where possible"
+                ]
+            }
+        ]
+    },
+    // Additional flexible sections
+    "sections": [
+        {
+            "title": "Skills",
+            "items": [
+                {
+                    "title": "Programming Languages",
+                    // Commas in content are rendered as provided
+                    "content": [
+                        // Include trailing comma if desired
+                        "TypeScript,",
+                        "JavaScript,",
+                        "Python,",
+                        // Last item without comma
+                        "Java"
+                    ]
+                },
+                {
+                    "title": "Technologies",
+                    "content": [
+                        "React,",
+                        "Node.js,",
+                        "Docker,",
+                        "Git"
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Education",
+            "items": [
+                {
+                    "title": "University Degree",
+                    // Can include HTML if needed
+                    "content": [
+                        "BSc Computer Science - Example University"
+                    ],
+                    // Optional in general sections
+                    "dates": "2015 - 2019"
+                }
+            ]
+        },
+        {
+            "title": "Projects",
+            "items": [
+                {
+                    "title": "Project Name",
+                    // Optional project link
+                    "link": "https://github.com/username/project",
+                    "content": [
+                        "Project description",
+                        // HTML supported
+                        "Can include <a href='https://example.com'>HTML links</a> when needed"
+                    ]
+                }
+            ]
+        }
+    ]
+}
+```
+
+Note: The actual TypeScript interfaces for this structure can be found in `src/types/CV/CV.ts`. The system will validate your JSON against these types at runtime.
+
+
 ## Development
 
 ### Available Scripts
