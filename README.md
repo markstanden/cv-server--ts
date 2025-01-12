@@ -79,11 +79,11 @@ npm run dev
 src/
 ├── GitHubRepoDataStore/    # GitHub data fetching implementation
 ├── frontend/               # Frontend components and rendering logic
-│   ├── sections/           # CV section components
-│   └── renderPage/         # Main page rendering logic
-├── lib/                    # Utility functions and helpers
-├── types/                  # TypeScript type definitions
-└── tailwind/               # Tailwind CSS configuration and utilities
+│   ├── sections/          # CV section components
+│   └── renderPage/        # Main page rendering logic
+├── lib/                   # Utility functions and helpers
+├── types/                 # TypeScript type definitions
+└── tailwind/             # Tailwind CSS configuration and utilities
 ```
 
 ## Strategic Benefits
@@ -121,11 +121,15 @@ The CV server generates two main pages:
    - A formal letter format with greeting, body paragraphs, and sign-off
    - Professional spacing and typography
 
+![screenshot illustrating the cover letter's professional look and feel](documentation/readme/screenshots/cover-letter.jpg "Cover Letter")
+
 2. A CV page that includes:
    - Your name and contact details in a clean header
    - Work experience with indented content and clear date positioning
    - Skills and education in a structured format
    - Project links and descriptions
+
+![screenshot illustrating the cv's clean, concise design](documentation/readme/screenshots/cv.jpg "CV")
 
 Both pages are designed to be responsive and printer-friendly (looks great as a PDF too), using Tailwind CSS for styling.
 
