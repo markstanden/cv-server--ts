@@ -121,11 +121,16 @@ The CV server generates two main views:
    - A formal letter format with greeting, body paragraphs, and sign-off
    - Professional spacing and typography
 
+![screenshot illustrating the cover letter's professional look and feel](documentation/readme/screenshots/cover-letter.jpg "Cover Letter")
+
 2. A CV view that includes:
    - Your name and contact details in a clean header
    - Work experience with indented content and clear date positioning
    - Skills and education in a structured format
    - Project links and descriptions
+
+![screenshot illustrating the cv's clean, concise design](documentation/readme/screenshots/cv.jpg "CV")
+
 
 Both views are responsive and print-friendly, using Tailwind CSS for styling.
 
