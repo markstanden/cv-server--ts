@@ -114,16 +114,16 @@ The branch name becomes part of the final URL (e.g., `cv.example.com/branch-name
 
 ## Output Format
 
-The CV server generates two main views:
+The CV server generates two main pages:
 
-1. A cover letter view that includes:
+1. A cover letter page that includes:
    - Your contact details in a right-aligned header
    - A formal letter format with greeting, body paragraphs, and sign-off
    - Professional spacing and typography
 
 ![screenshot illustrating the cover letter's professional look and feel](documentation/readme/screenshots/cover-letter.jpg "Cover Letter")
 
-2. A CV view that includes:
+2. A CV page that includes:
    - Your name and contact details in a clean header
    - Work experience with indented content and clear date positioning
    - Skills and education in a structured format
@@ -131,10 +131,9 @@ The CV server generates two main views:
 
 ![screenshot illustrating the cv's clean, concise design](documentation/readme/screenshots/cv.jpg "CV")
 
+Both pages are designed to be responsive and printer-friendly (looks great as a PDF too), using Tailwind CSS for styling.
 
-Both views are responsive and print-friendly, using Tailwind CSS for styling.
-
-## CV Data Format,n
+## CV Data Format
 
 ### Schema
 
