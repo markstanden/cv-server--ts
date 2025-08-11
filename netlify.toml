@@ -1,19 +1,19 @@
 [dev]
-  framework = "vite"
+  command = "npm run client:dev"
+  targetPort = 5173
   autoLaunch = true
 
 [build]
-  command = 'npm run build'
-  environment = {NODE_VERSION = '20'}
-  publish = 'dist'
+  command = "npm run build"
+  environment = { NODE_VERSION = "20" }
+  publish = "dist"
 
+[functions]
+  directory = "netlify/functions"
+
+# API to Netlify Functions
 [[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
   force = true
-  status = 200
-  from = '/api/*'
-  to = '/api/:splat'
-
-[[redirects]]
-  status = 200
-  from = '/*'
-  to = '/index.html'
