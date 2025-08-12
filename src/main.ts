@@ -34,18 +34,15 @@ addEventListener('DOMContentLoaded', async () => {
     try {
         await renderPage(app, key);
         loaded = true;
-    } catch (err: unknown) {
-        if (err instanceof Error) {
-          console.error("Failed to load page", err.message, err.stack);
-        } else {
-          console.error("Failed to load page", err);
-        }
+    } catch {
         loader.innerHTML = `
     <div class="max-w-xl text-sm text-gray-700 p-4 border-2 rounded-lg mx-auto mt-20">
       <p class="font-medium text-red-800 text-center">Sorry, we couldn't load the page.</p>
       <p class="font-medium text-center">Please refresh or try again in a moment.</p>
     </div>`;
     } finally {
-        if (loaded) loader.remove();
+        if (loaded) {
+            loader.remove();
+        }
     }
 });
