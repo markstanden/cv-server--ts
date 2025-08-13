@@ -1,4 +1,4 @@
-import { ReadOnlyDataStore } from '../types/DataStore/ReadOnlyDataStore.ts';
+import { ReadOnlyDataStore } from '../../types/DataStore/ReadOnlyDataStore.ts';
 
 export class GithubRepoDataStore<DATA> implements ReadOnlyDataStore<DATA> {
     /** The custom media type supplied by responses from the GitHub API */

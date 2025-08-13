@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import getData from './getData';
 import { Context } from '@netlify/functions';
-import { ReadOnlyDataStore } from '../../../src/types/DataStore/ReadOnlyDataStore';
-import { OnlyAlphas } from '../../../src/lib/OnlyAlphas/OnlyAlphas';
+import { ReadOnlyDataStore } from '../../../src/types/DataStore/ReadOnlyDataStore.ts';
+import { OnlyAlphas } from '../../../src/lib/OnlyAlphas/OnlyAlphas.ts';
 
 describe.concurrent('getData lambda function:', async () => {
     describe.concurrent('supplied path tests:', async () => {

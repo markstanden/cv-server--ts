@@ -3,11 +3,12 @@ import typescriptPlugin from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 import importPlugin from 'eslint-plugin-import';
 import prettier from 'eslint-config-prettier';
+import globals from 'globals';
 
 export default [
   js.configs.recommended,
     {
-    files: ['**/*.ts', '**/*.tsx'],
+    files: ['src/**/*.{ts,tsx}'],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
@@ -17,25 +18,7 @@ export default [
           jsx: true,
         },
       },
-      globals: {
-        window: 'readonly',
-        document: 'readonly',
-        console: 'readonly',
-        Element: 'readonly',
-        HTMLElement: 'readonly',
-        Event: 'readonly',
-        EventTarget: 'readonly',
-        addEventListener: 'readonly',
-        removeEventListener: 'readonly',
-        fetch: 'readonly',
-        Response: 'readonly',
-        Request: 'readonly',
-        Headers: 'readonly',
-        atob: 'readonly',
-        btoa: 'readonly',
-        process: 'readonly',
-        Buffer: 'readonly',
-      },
+      globals: { ...globals.browser },
     },
     plugins: {
       '@typescript-eslint': typescriptPlugin,
@@ -78,37 +61,14 @@ export default [
         typescript: { alwaysTryTypes: true },
       },
     },
-  },
+  }, 
   
   {
-    files: ['**/*.js', '**/*.jsx'],
+    files: ['netlify/functions/**/*.{ts,js}', 'src/node/**/*.{ts,js}'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
-      ecmaFeatures: {
-        jsx: true,
-      },
-      globals: {
-        // Browser globals
-        window: 'readonly',
-        document: 'readonly',
-        console: 'readonly',
-        Element: 'readonly',
-        HTMLElement: 'readonly',
-        Event: 'readonly',
-        EventTarget: 'readonly',
-        addEventListener: 'readonly',
-        removeEventListener: 'readonly',
-        fetch: 'readonly',
-        Response: 'readonly',
-        Request: 'readonly',
-        Headers: 'readonly',
-        atob: 'readonly',
-        btoa: 'readonly',
-        process: 'readonly',
-        Buffer: 'readonly',
-
-      },
+      globals: { ...globals.node },
     },
     plugins: {
       import: importPlugin,

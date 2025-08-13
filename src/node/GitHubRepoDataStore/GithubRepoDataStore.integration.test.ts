@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { GithubRepoDataStore } from './GithubRepoDataStore.ts';
-import { CV } from '../types/CV/CV.ts';
+import { CV } from '../../types/CV/CV.ts';
 
 function makeGithubDataStoreFromEnvironment<TYPE>() {
     return new GithubRepoDataStore<TYPE>({
