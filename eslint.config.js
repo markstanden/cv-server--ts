@@ -75,7 +75,7 @@ export default [
     },
     settings: {
       'import/resolver': {
-        typescript: {},
+        typescript: { alwaysTryTypes: true },
       },
     },
   },
