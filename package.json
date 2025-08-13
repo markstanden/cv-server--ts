@@ -9,7 +9,7 @@
     "build": "tsc && vite build",
     "format": "prettier --write \"src/**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx,md,css}\"",
     "lint": "eslint ./src --ext js,cjs,mjs,ts,cts,mts,tsx --report-unused-disable-directives --max-warnings 0",
-    "prettier-format": "prettier --write 'src/**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx,md,css}'",
+    "prettier-format": "prettier --write \"src/**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx,md,css}\"",
     "test": "netlify dev:exec npm run vitest-all",
     "testint": "netlify dev:exec npm run vitest-integration-only",
     "vitest-all": "vitest -c ./vitest.all.config.ts",
