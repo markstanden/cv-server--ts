@@ -10,8 +10,7 @@ const config = {
     singleQuote: true,
     singleAttributePerLine: true,
     quoteProps: 'consistent',
-    plugins: ['prettier-plugin-tailwindcss'],
-    tailwindFunctions: ['tw'],
+    plugins: [],
     overrides: [
         {
             files: ['**/*.css'],

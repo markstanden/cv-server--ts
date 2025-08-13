@@ -3,5 +3,5 @@
 @import "./layer.css";
 
 :root {
-  --font-family-main: "Inter", ui-sans-serif;
+    --font-family-main: "Inter", ui-sans-serif;
 }

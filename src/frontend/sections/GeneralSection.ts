@@ -30,9 +30,9 @@ export class GeneralSection implements Section {
                         <li class="${tw`grid-auto-rows text-base/6.5 my-1 inline-grid w-full sm:grid-rows-1 print:my-0 print:text-xs/5 [&:nth-child(odd)]:bg-indigo-50 ${item.dates ? tw`sm:grid-cols-[8rem_1fr_6rem] print:grid-cols-[4rem_1fr_6rem]` : tw`sm:grid-cols-[8rem_1fr] print:grid-cols-[6rem_1fr]`} gap-1 sm:gap-4`}">
                             <h3 class"${tw`text-bold order-1`}">
                                 ${
-                                    item.link
-                                        ? `<a href="${item.link}">${item.title}</a>`
-                                        : item.title
+                                    item.link ?
+                                        `<a href="${item.link}">${item.title}</a>`
+                                    :   item.title
                                 } 
                             </h3>
                             <p class"${tw`order-3 ml-0.5 border-l-2 border-indigo-700 sm:order-2 sm:border-l-0 print:text-xs/5`}">
