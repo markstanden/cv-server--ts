@@ -36,12 +36,6 @@ export default [
         btoa: 'readonly',
         process: 'readonly',
         Buffer: 'readonly',
-        __dirname: 'readonly',
-        __filename: 'readonly',
-        global: 'readonly',
-        module: 'readonly',
-        require: 'readonly',
-        exports: 'readonly',
       },
     },
     plugins: {
@@ -112,15 +106,9 @@ export default [
         Headers: 'readonly',
         atob: 'readonly',
         btoa: 'readonly',
-        // Node.js globals
         process: 'readonly',
         Buffer: 'readonly',
-        __dirname: 'readonly',
-        __filename: 'readonly',
-        global: 'readonly',
-        module: 'readonly',
-        require: 'readonly',
-        exports: 'readonly',
+
       },
     },
     plugins: {
