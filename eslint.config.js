@@ -5,14 +5,9 @@ import importPlugin from 'eslint-plugin-import';
 import prettier from 'eslint-config-prettier';
 
 export default [
-  // Base JavaScript recommended rules
   js.configs.recommended,
-  
-  // Prettier config (must be last to override other formatting rules)
   prettier,
-  
-  // TypeScript files configuration
-  {
+    {
     files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
       parser: typescriptParser,
@@ -24,7 +19,6 @@ export default [
         },
       },
       globals: {
-        // Browser globals
         window: 'readonly',
         document: 'readonly',
         console: 'readonly',
@@ -40,7 +34,6 @@ export default [
         Headers: 'readonly',
         atob: 'readonly',
         btoa: 'readonly',
-        // Node.js globals
         process: 'readonly',
         Buffer: 'readonly',
         __dirname: 'readonly',
@@ -56,8 +49,9 @@ export default [
       import: importPlugin,
     },
     rules: {
-      // TypeScript specific rules
+      ...typescriptPlugin.configs.recommended.rules,
       '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-empty-object-type': 'off',
       
       // General rules
       'no-console': 'warn',
@@ -80,7 +74,6 @@ export default [
         },
       ],
       
-      // Import rules - using recommended import rules
       'import/no-unresolved': 'error',
       'import/named': 'error',
       'import/default': 'error',
@@ -93,7 +86,6 @@ export default [
     },
   },
   
-  // JavaScript files configuration
   {
     files: ['**/*.js', '**/*.jsx'],
     languageOptions: {
@@ -153,7 +145,6 @@ export default [
           allowArrayStart: true,
         },
       ],
-      // Import rules - using recommended import rules
       'import/no-unresolved': 'error',
       'import/named': 'error',
       'import/default': 'error',
