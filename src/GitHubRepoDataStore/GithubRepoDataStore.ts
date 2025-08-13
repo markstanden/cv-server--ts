@@ -103,7 +103,7 @@ export class GithubRepoDataStore<DATA> implements ReadOnlyDataStore<DATA> {
 
         try {
             return atob(responseJSON.content);
-        } catch (reason) {
+        } catch {
             return undefined;
         }
     }
