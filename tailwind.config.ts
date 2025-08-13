@@ -5,7 +5,7 @@ const config: Config = {
     plugins: [],
     theme: {
         fontFamily: {
-            main: ['"Inter"', 'ui-sans-serif'],
+            main: ['var(--font-family-main)', 'ui-sans-serif'],
         },
     },
 };

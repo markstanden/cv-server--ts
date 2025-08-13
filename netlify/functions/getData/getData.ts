@@ -1,9 +1,9 @@
 import type { Config, Context } from '@netlify/functions';
-import { ReadOnlyDataStore } from '../../../src/types/DataStore/ReadOnlyDataStore';
-import { Sanitiser } from '../../../src/types/Sanatiser/Sanitiser';
-import { GithubRepoDataStore } from '../../../src/GitHubRepoDataStore/GithubRepoDataStore';
+import { ReadOnlyDataStore } from '../../../src/types/DataStore/ReadOnlyDataStore.ts';
+import { Sanitiser } from '../../../src/types/Sanatiser/Sanitiser.ts';
+import { GithubRepoDataStore } from '../../../src/node/GitHubRepoDataStore/GithubRepoDataStore.ts';
 import { constants } from 'node:http2';
-import { OnlyAlphas } from '../../../src/lib/OnlyAlphas/OnlyAlphas';
+import { OnlyAlphas } from '../../../src/lib/OnlyAlphas/OnlyAlphas.ts';
 
 export default async function getData<TYPE>(
     _: Request,

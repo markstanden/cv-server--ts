@@ -5,9 +5,10 @@ export class OnlyAlphas implements Sanitiser {
     readonly matcher: RegExp;
 
     private constructor(and?: RegExp) {
-        this.matcher = and
-            ? new RegExp(`(${OnlyAlphas.MATCHER.source}|${and.source})`)
-            : OnlyAlphas.MATCHER;
+        this.matcher =
+            and ?
+                new RegExp(`(${OnlyAlphas.MATCHER.source}|${and.source})`)
+            :   OnlyAlphas.MATCHER;
     }
 
     static and(additionalMatchers: RegExp) {
