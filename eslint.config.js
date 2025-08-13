@@ -6,7 +6,6 @@ import prettier from 'eslint-config-prettier';
 
 export default [
   js.configs.recommended,
-  prettier,
     {
     files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
@@ -145,4 +144,5 @@ export default [
       },
     },
   },
+  prettier,
 ];
