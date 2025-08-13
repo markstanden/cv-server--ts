@@ -12,7 +12,7 @@ export default [
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
-        ecmaVersion: 2018,
+        ecmaVersion: 2022,
         sourceType: 'module',
         ecmaFeatures: {
           jsx: true,
@@ -84,7 +84,7 @@ export default [
   {
     files: ['**/*.js', '**/*.jsx'],
     languageOptions: {
-      ecmaVersion: 2018,
+      ecmaVersion: 2022,
       sourceType: 'module',
       ecmaFeatures: {
         jsx: true,
