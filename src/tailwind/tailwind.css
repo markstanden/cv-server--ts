@@ -2,6 +2,6 @@
 @import "./custom-declarations.css";
 @import "./layer.css";
 
-@theme {
+:root {
   --font-family-main: "Inter", ui-sans-serif;
 }
