@@ -18,7 +18,8 @@
     "vitest-unit-only": "vitest -c ./vitest.unit.config.ts"
   },
   "dependencies": {
-    "@netlify/functions": "^4.2.1"
+    "@netlify/functions": "^4.2.1",
+    "@tailwindcss/postcss": "^4.1.11"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.4",

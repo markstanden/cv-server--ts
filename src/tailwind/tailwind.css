@@ -1,2 +1,7 @@
+@import "tailwindcss";
 @import "./custom-declarations.css";
 @import "./layer.css";
+
+@theme {
+  --font-family-main: "Inter", ui-sans-serif;
+}
