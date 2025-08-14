@@ -1,4 +1,4 @@
-const API = 'api';
-const VERSION = 'v1';
+const API = '.netlify/functions';
+const FUNCTION_NAME = 'getData';
 
-export const API_BASE_PATH = `/${API}/${VERSION}`;
+export const API_BASE_PATH = `/${API}/${FUNCTION_NAME}`;
