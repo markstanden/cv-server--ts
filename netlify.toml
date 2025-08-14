@@ -13,7 +13,7 @@
 
 # API to Netlify Functions
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
+  from = "/api/v1/*"
+  to = "/.netlify/functions/getData/:splat"
   status = 200
   force = true

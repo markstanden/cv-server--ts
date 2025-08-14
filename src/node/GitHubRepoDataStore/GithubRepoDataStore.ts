@@ -43,8 +43,9 @@ export class GithubRepoDataStore<DATA> implements ReadOnlyDataStore<DATA> {
             .replace('%FILEPATH%', `${filePath}`);
     }
 
-    static createFromEnvironment<TYPE>() {
-        return new GithubRepoDataStore<TYPE>({
+    static createFromEnvironment<T>() {
+        return new GithubRepoDataStore<T>({
+
             /** The username of the owner of the GitHub repository */
             userName: process.env.GITHUB_USERNAME ?? '',
 
