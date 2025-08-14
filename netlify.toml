@@ -11,6 +11,13 @@
 [functions]
   directory = "netlify/functions"
 
+# API to Netlify Functions
+[[redirects]]
+  from = "/api/v1/*"
+  to = "/.netlify/functions/getData/:splat"
+  status = 200
+
+# SPA routing - serve index.html for all routes (otherwise /cv-branch will 404!)
 [[redirects]]
   from = "/*"
   to = "/index.html"
