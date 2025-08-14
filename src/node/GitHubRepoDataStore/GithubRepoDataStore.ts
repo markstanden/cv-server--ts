@@ -45,6 +45,7 @@ export class GithubRepoDataStore<DATA> implements ReadOnlyDataStore<DATA> {
 
     static createFromEnvironment<T>() {
         return new GithubRepoDataStore<T>({
+
             /** The username of the owner of the GitHub repository */
             userName: process.env.GITHUB_USERNAME ?? '',
 
