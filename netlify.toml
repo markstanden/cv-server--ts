@@ -12,7 +12,7 @@
   directory = "netlify/functions"
 
 # API to Netlify Functions (must come first to take precedence)
-# Netlify routing works top down and matches the first and halts
+# Netlify routing works top down and matches the first redirect and stops matching
 [[redirects]]
   from = "/api/v1/*"
   to = "/.netlify/functions/getData/:splat"
