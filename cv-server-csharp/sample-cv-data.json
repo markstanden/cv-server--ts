@@ -1,0 +1,214 @@
+{
+  "user": {
+    "name": "Alex Developer",
+    "location": {
+      "city": "Manchester",
+      "country": "United Kingdom"
+    },
+    "contact": {
+      "phone": "+44 7700 900123",
+      "email": "alex.developer@example.com"
+    },
+    "links": [
+      {
+        "title": "Portfolio",
+        "url": "https://alexdev.com"
+      },
+      {
+        "title": "GitHub",
+        "url": "https://github.com/alexdev"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://linkedin.com/in/alexdev"
+      }
+    ]
+  },
+  "coverLetter": {
+    "greeting": "Dear Hiring Manager,",
+    "paragraphs": [
+      "I am writing to express my strong interest in the Senior C# Developer position at your organization. With over 8 years of experience in .NET development and a proven track record of delivering high-quality, scalable solutions, I am confident I would be a valuable addition to your team.",
+      "Throughout my career, I have specialized in building cloud-native applications using Azure services, implementing test-driven development practices, and leading agile development teams. My recent work has focused on serverless architectures, microservices, and DevOps automation.",
+      "I am particularly excited about this opportunity because it aligns perfectly with my passion for modern C# development and my commitment to continuous learning. I would welcome the chance to discuss how my experience and skills can contribute to your team's success."
+    ],
+    "signOff": "Yours sincerely,"
+  },
+  "experienceSection": {
+    "title": "Work Experience",
+    "items": [
+      {
+        "title": "Senior Software Engineer",
+        "business": {
+          "title": "CloudTech Solutions Ltd",
+          "link": "https://cloudtech.example.com",
+          "location": {
+            "city": "Manchester",
+            "country": "UK"
+          },
+          "department": "Cloud Engineering"
+        },
+        "dates": "2020 - Present",
+        "content": [
+          "Led development of microservices architecture serving 2M+ daily users using C# and Azure Functions",
+          "Implemented comprehensive TDD strategy, achieving 95% code coverage across all services",
+          "Reduced deployment time by 70% through Azure DevOps CI/CD pipeline automation",
+          "Mentored team of 6 developers on clean code principles and SOLID design patterns",
+          "Migrated legacy monolith to event-driven architecture using Azure Service Bus"
+        ]
+      },
+      {
+        "title": "Software Developer",
+        "business": {
+          "title": "FinTech Innovations",
+          "link": "https://fintech-innovations.example.com",
+          "location": {
+            "city": "London",
+            "country": "UK"
+          },
+          "department": "Payment Systems"
+        },
+        "dates": "2017 - 2020",
+        "content": [
+          "Developed high-throughput payment processing system handling £10M+ daily transactions",
+          "Implemented real-time fraud detection using Azure Machine Learning",
+          "Designed RESTful APIs consumed by 50+ integration partners",
+          "Reduced system latency by 40% through performance optimization and caching strategies"
+        ]
+      },
+      {
+        "title": "Junior Developer",
+        "business": {
+          "title": "WebDev Agency",
+          "link": "https://webdev.example.com",
+          "location": {
+            "city": "Birmingham",
+            "country": "UK"
+          },
+          "department": "Development"
+        },
+        "dates": "2015 - 2017",
+        "content": [
+          "Built e-commerce platforms using ASP.NET MVC and Entity Framework",
+          "Collaborated with UX designers to implement responsive web designs",
+          "Participated in daily stand-ups and bi-weekly sprint planning",
+          "Gained proficiency in C#, SQL Server, and front-end technologies"
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "title": "Technical Skills",
+      "items": [
+        {
+          "title": "Languages & Frameworks",
+          "link": null,
+          "dates": null,
+          "content": [
+            "C# (.NET 8, .NET Core, .NET Framework)",
+            "ASP.NET Core, Blazor, Razor Pages",
+            "TypeScript, JavaScript (React, Node.js)",
+            "Python (for scripting and automation)"
+          ]
+        },
+        {
+          "title": "Azure Services",
+          "link": null,
+          "dates": null,
+          "content": [
+            "Azure Functions (Consumption & Premium plans)",
+            "Azure Static Web Apps",
+            "Azure DevOps (Pipelines, Repos, Boards)",
+            "Azure Service Bus, Event Grid, Cosmos DB",
+            "Application Insights, Key Vault"
+          ]
+        },
+        {
+          "title": "Development Practices",
+          "link": null,
+          "dates": null,
+          "content": [
+            "Test-Driven Development (TDD) with xUnit, NUnit",
+            "Clean Architecture & Domain-Driven Design",
+            "CI/CD automation with GitHub Actions & Azure Pipelines",
+            "Agile methodologies (Scrum, Kanban)",
+            "Code review and pair programming"
+          ]
+        },
+        {
+          "title": "Tools & Technologies",
+          "link": null,
+          "dates": null,
+          "content": [
+            "Git, GitHub, Azure Repos",
+            "Docker, Kubernetes (AKS)",
+            "SQL Server, PostgreSQL, MongoDB",
+            "Visual Studio, Rider, VS Code",
+            "Terraform, ARM templates"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Education",
+      "items": [
+        {
+          "title": "BSc (Hons) Computer Science",
+          "link": "https://manchester.ac.uk",
+          "dates": "2012 - 2015",
+          "content": [
+            "First Class Honours",
+            "Dissertation: 'Scalable Microservices Architecture for Cloud-Native Applications' (85%)",
+            "Relevant modules: Distributed Systems, Software Engineering, Database Systems"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Certifications",
+      "items": [
+        {
+          "title": "Microsoft Certified: Azure Developer Associate",
+          "link": "https://learn.microsoft.com/certifications/azure-developer/",
+          "dates": "2022",
+          "content": [
+            "Expertise in developing and deploying cloud solutions on Azure"
+          ]
+        },
+        {
+          "title": "Microsoft Certified: DevOps Engineer Expert",
+          "link": "https://learn.microsoft.com/certifications/devops-engineer/",
+          "dates": "2021",
+          "content": [
+            "Advanced skills in Azure DevOps and CI/CD practices"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Notable Projects",
+      "items": [
+        {
+          "title": "Real-Time Analytics Dashboard",
+          "link": "https://github.com/alexdev/analytics-dashboard",
+          "dates": "2023",
+          "content": [
+            "Built serverless analytics platform using Azure Functions and SignalR",
+            "Processes 100K+ events per second with sub-second latency",
+            "Open-source project with 500+ GitHub stars"
+          ]
+        },
+        {
+          "title": "CV Rendering Service (This Project!)",
+          "link": "https://github.com/alexdev/cv-server-csharp",
+          "dates": "2024",
+          "content": [
+            "Server-side CV rendering using Azure Functions and RazorLight",
+            "Demonstrates TDD, clean architecture, and serverless best practices",
+            "Fully documented proof-of-concept"
+          ]
+        }
+      ]
+    }
+  ]
+}

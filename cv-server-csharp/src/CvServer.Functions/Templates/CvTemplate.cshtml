@@ -1,0 +1,154 @@
+@model CvServer.Functions.Models.Cv
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Model.User.Name - CV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @@media print {
+            .no-print { display: none; }
+            body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+        }
+        @@page { margin: 1cm; }
+        .font-main { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    </style>
+</head>
+<body class="font-main bg-gray-50">
+    <!-- Cover Letter Section -->
+    <section class="cover-letter bg-white shadow-lg max-w-4xl mx-auto my-8 p-8 print:shadow-none print:my-0">
+        <div class="text-right mb-8">
+            <h1 class="text-2xl font-bold text-gray-900">@Model.User.Name</h1>
+            <p class="text-gray-700">@Model.User.Location.City, @Model.User.Location.Country</p>
+            <a href="mailto:@Model.User.Contact.Email" class="text-indigo-600 hover:text-indigo-800">@Model.User.Contact.Email</a>
+            <p class="text-gray-700">@Model.User.Contact.Phone</p>
+        </div>
+
+        <div class="mb-6">
+            <p class="text-gray-900">@Model.CoverLetter.Greeting</p>
+        </div>
+
+        @foreach (var paragraph in Model.CoverLetter.Paragraphs)
+        {
+            <p class="mb-4 text-gray-800 leading-relaxed">@paragraph</p>
+        }
+
+        <div class="mt-8">
+            <p class="text-gray-900">@Model.CoverLetter.SignOff</p>
+            <p class="mt-4 font-semibold text-gray-900">@Model.User.Name</p>
+        </div>
+    </section>
+
+    <!-- Page Break for Print -->
+    <div class="print:page-break-before-always"></div>
+
+    <!-- CV Section -->
+    <section class="cv bg-white shadow-lg max-w-4xl mx-auto my-8 p-8 print:shadow-none print:my-0">
+        <!-- Header with User Info -->
+        <header class="border-b-4 border-indigo-600 pb-6 mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">@Model.User.Name</h1>
+            <div class="flex flex-wrap gap-4 text-sm text-gray-700">
+                <span>📍 @Model.User.Location.City, @Model.User.Location.Country</span>
+                <a href="mailto:@Model.User.Contact.Email" class="text-indigo-600 hover:text-indigo-800">✉️ @Model.User.Contact.Email</a>
+                <a href="tel:@Model.User.Contact.Phone" class="text-indigo-600 hover:text-indigo-800">📞 @Model.User.Contact.Phone</a>
+            </div>
+            @if (Model.User.Links.Any())
+            {
+                <div class="flex flex-wrap gap-4 mt-3 text-sm">
+                    @foreach (var link in Model.User.Links)
+                    {
+                        <a href="@link.Url" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline">
+                            🔗 @link.Title
+                        </a>
+                    }
+                </div>
+            }
+        </header>
+
+        <!-- Experience Section -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2">
+                @Model.ExperienceSection.Title
+            </h2>
+            @foreach (var job in Model.ExperienceSection.Items)
+            {
+                <div class="mb-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900">@job.Title</h3>
+                            <p class="text-gray-700">
+                                <a href="@job.Business.Link" target="_blank" class="text-indigo-600 hover:text-indigo-800">
+                                    @job.Business.Title
+                                </a>
+                                @if (!string.IsNullOrEmpty(job.Business.Department))
+                                {
+                                    <span> - @job.Business.Department</span>
+                                }
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                @job.Business.Location.City, @job.Business.Location.Country
+                            </p>
+                        </div>
+                        <span class="text-sm text-gray-600 font-medium">@job.Dates</span>
+                    </div>
+                    <ul class="list-disc list-inside ml-4 text-gray-800 space-y-1">
+                        @foreach (var achievement in job.Content)
+                        {
+                            <li>@achievement</li>
+                        }
+                    </ul>
+                </div>
+            }
+        </section>
+
+        <!-- General Sections (Skills, Education, Projects, etc.) -->
+        @foreach (var section in Model.Sections)
+        {
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2">
+                    @section.Title
+                </h2>
+                @foreach (var item in section.Items)
+                {
+                    <div class="mb-4">
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="text-lg font-semibold text-gray-900">
+                                @if (!string.IsNullOrEmpty(item.Link))
+                                {
+                                    <a href="@item.Link" target="_blank" class="text-indigo-600 hover:text-indigo-800">
+                                        @item.Title
+                                    </a>
+                                }
+                                else
+                                {
+                                    @item.Title
+                                }
+                            </h3>
+                            @if (!string.IsNullOrEmpty(item.Dates))
+                            {
+                                <span class="text-sm text-gray-600 font-medium">@item.Dates</span>
+                            }
+                        </div>
+                        @if (item.Content.Any())
+                        {
+                            <ul class="list-disc list-inside ml-4 text-gray-800 space-y-1">
+                                @foreach (var content in item.Content)
+                                {
+                                    <li>@content</li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                }
+            </section>
+        }
+
+        <!-- Footer -->
+        <footer class="mt-12 pt-6 border-t-2 border-gray-300 text-center text-sm text-gray-600 no-print">
+            <p>This CV was generated dynamically from structured data stored in GitHub.</p>
+            <p class="mt-2">Built with Azure Functions + C# + RazorLight</p>
+        </footer>
+    </section>
+</body>
+</html>
