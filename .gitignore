@@ -21,6 +21,7 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *.sln
+!cv-server-csharp/**/*.sln
 *.sw?
 
 # Local Netlify folder
