@@ -1,12 +1,13 @@
 using CvServer.Functions.Validation;
-using FluentAssertions;
+using Shouldly;
 using Xunit;
 
 namespace CvServer.Functions.Tests.Validation;
 
 /// <summary>
-/// TDD Tests for AlphaNumericSanitiser - written BEFORE implementation
-/// Validates input sanitization behavior
+/// TDD Tests for AlphaNumericSanitiser
+/// C# port of TypeScript OnlyAlphas tests
+/// Validates input sanitization behavior using filter approach
 /// </summary>
 public class AlphaNumericSanitiserTests
 {
@@ -19,29 +20,29 @@ public class AlphaNumericSanitiserTests
     public void Sanitise_AlphaNumericInput_ReturnsUnchanged(string input, string expected)
     {
         // Arrange
-        var sanitiser = new AlphaNumericSanitiser();
+        var sanitiser = AlphaNumericSanitiser.Strict();
 
         // Act
         var result = sanitiser.Sanitise(input);
 
         // Assert
-        result.Should().Be(expected, "alphanumeric characters should pass through unchanged");
+        result.ShouldBe(expected, "alphanumeric characters should pass through unchanged");
     }
 
     [Theory]
     [InlineData("feature-branch", "feature-branch")]
     [InlineData("my_branch", "my_branch")]
     [InlineData("release-v1_2", "release-v1_2")]
-    public void Sanitise_AllowedSpecialCharacters_ReturnsUnchanged(string input, string expected)
+    public void Sanitise_WithAdditionalMatchers_AllowsSpecifiedChars(string input, string expected)
     {
-        // Arrange
-        var sanitiser = new AlphaNumericSanitiser(allowHyphens: true, allowUnderscores: true);
+        // Arrange - matches TypeScript: OnlyAlphas.and(/[-_]/)
+        var sanitiser = AlphaNumericSanitiser.And("[-_]");
 
         // Act
         var result = sanitiser.Sanitise(input);
 
         // Assert
-        result.Should().Be(expected, "hyphens and underscores should be allowed when configured");
+        result.ShouldBe(expected, "hyphens and underscores should be allowed when using And()");
     }
 
     [Theory]
@@ -50,17 +51,17 @@ public class AlphaNumericSanitiserTests
     [InlineData("my<branch>", "mybranch")]
     [InlineData("data?query", "dataquery")]
     [InlineData("../../../etc/passwd", "etcpasswd")]
-    [InlineData("branch;rm -rf /", "branchrm-rf")]
+    [InlineData("branch;rm -rf /", "branchrm")]
     public void Sanitise_DangerousCharacters_RemovesThem(string input, string expected)
     {
         // Arrange
-        var sanitiser = new AlphaNumericSanitiser(allowHyphens: true);
+        var sanitiser = AlphaNumericSanitiser.Strict();
 
         // Act
         var result = sanitiser.Sanitise(input);
 
         // Assert
-        result.Should().Be(expected, "dangerous characters must be removed for security");
+        result.ShouldBe(expected, "dangerous characters must be removed for security");
     }
 
     [Theory]
@@ -70,13 +71,13 @@ public class AlphaNumericSanitiserTests
     public void Sanitise_EmptyOrInvalidInput_ReturnsEmpty(string input, string expected)
     {
         // Arrange
-        var sanitiser = new AlphaNumericSanitiser();
+        var sanitiser = AlphaNumericSanitiser.Strict();
 
         // Act
         var result = sanitiser.Sanitise(input);
 
         // Assert
-        result.Should().Be(expected, "invalid-only input should result in empty string");
+        result.ShouldBe(expected, "invalid-only input should result in empty string");
     }
 
     [Theory]
@@ -85,28 +86,28 @@ public class AlphaNumericSanitiserTests
     [InlineData("a-b_c-d", "abcd")]
     public void Sanitise_StrictMode_RemovesHyphensAndUnderscores(string input, string expected)
     {
-        // Arrange
-        var sanitiser = new AlphaNumericSanitiser(allowHyphens: false, allowUnderscores: false);
+        // Arrange - strict mode removes all non-alphanumeric
+        var sanitiser = AlphaNumericSanitiser.Strict();
 
         // Act
         var result = sanitiser.Sanitise(input);
 
         // Assert
-        result.Should().Be(expected, "strict mode should remove all special characters");
+        result.ShouldBe(expected, "strict mode should remove all special characters");
     }
 
     [Fact]
     public void Sanitise_MultipleConsecutiveSpecialChars_RemovesAll()
     {
         // Arrange
-        var sanitiser = new AlphaNumericSanitiser();
+        var sanitiser = AlphaNumericSanitiser.Strict();
         var input = "test@@@###!!!branch";
 
         // Act
         var result = sanitiser.Sanitise(input);
 
         // Assert
-        result.Should().Be("testbranch", "multiple consecutive special chars should all be removed");
+        result.ShouldBe("testbranch", "multiple consecutive special chars should all be removed");
     }
 
     [Theory]
@@ -116,26 +117,56 @@ public class AlphaNumericSanitiserTests
     public void Sanitise_SpecialCharsAtStartOrEnd_RemovesThem(string input, string expected)
     {
         // Arrange
-        var sanitiser = new AlphaNumericSanitiser();
+        var sanitiser = AlphaNumericSanitiser.Strict();
 
         // Act
         var result = sanitiser.Sanitise(input);
 
         // Assert
-        result.Should().Be(expected, "special characters at boundaries should be removed");
+        result.ShouldBe(expected, "special characters at boundaries should be removed");
     }
 
     [Fact]
     public void Sanitise_NullInput_ThrowsArgumentNullException()
     {
         // Arrange
-        var sanitiser = new AlphaNumericSanitiser();
+        var sanitiser = AlphaNumericSanitiser.Strict();
 
-        // Act
-        Action act = () => sanitiser.Sanitise(null!);
+        // Act & Assert
+        Should.Throw<ArgumentNullException>(() => sanitiser.Sanitise(null!))
+            .ParamName.ShouldBe("input", "null input should throw ArgumentNullException with correct parameter name");
+    }
+
+    [Fact]
+    public void Strict_CreatesStrictSanitiser()
+    {
+        // Arrange & Act
+        var sanitiser = AlphaNumericSanitiser.Strict();
 
         // Assert
-        act.Should().Throw<ArgumentNullException>()
-            .WithMessage("*input*", "null input should throw ArgumentNullException");
+        sanitiser.ShouldNotBeNull();
+        sanitiser.Sanitise("test-123").ShouldBe("test123", "strict sanitiser should remove hyphens");
+    }
+
+    [Fact]
+    public void And_WithHyphensAndUnderscores_AllowsBoth()
+    {
+        // Arrange & Act - matches TypeScript: OnlyAlphas.and(/[-_]/)
+        var sanitiser = AlphaNumericSanitiser.And("[-_]");
+
+        // Assert
+        sanitiser.Sanitise("test-with_special").ShouldBe("test-with_special");
+        sanitiser.Sanitise("remove@this").ShouldBe("removethis");
+    }
+
+    [Fact]
+    public void And_WithCustomPattern_AllowsSpecifiedChars()
+    {
+        // Arrange & Act - allow dots
+        var sanitiser = AlphaNumericSanitiser.And("[.]");
+
+        // Assert
+        sanitiser.Sanitise("file.txt").ShouldBe("file.txt");
+        sanitiser.Sanitise("remove@this").ShouldBe("removethis");
     }
 }

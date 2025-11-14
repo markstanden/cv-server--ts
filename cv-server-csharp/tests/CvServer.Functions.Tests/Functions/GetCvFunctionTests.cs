@@ -2,7 +2,7 @@ using System.Net;
 using CvServer.Functions.Functions;
 using CvServer.Functions.Interfaces;
 using CvServer.Functions.Models;
-using FluentAssertions;
+using Shouldly;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
@@ -14,6 +14,7 @@ namespace CvServer.Functions.Tests.Functions;
 
 /// <summary>
 /// TDD Tests for GetCvFunction
+/// Matches TypeScript getData behavior - rejects requests if sanitization changes input
 /// Tests the HTTP endpoint behavior, validation, and error handling
 /// </summary>
 public class GetCvFunctionTests
@@ -57,7 +58,7 @@ public class GetCvFunctionTests
         var response = await _function.Run(mockRequest.Object, branchName);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
         _mockDataStore.Verify(d => d.GetByIdAsync(branchName), Times.Once);
         _mockRazorEngine.Verify(r => r.CompileRenderAsync("CvTemplate", cvData, null), Times.Once);
     }
@@ -72,7 +73,7 @@ public class GetCvFunctionTests
         var response = await _function.Run(mockRequest.Object, string.Empty);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
         _mockDataStore.Verify(d => d.GetByIdAsync(It.IsAny<string>()), Times.Never);
     }
 
@@ -86,16 +87,16 @@ public class GetCvFunctionTests
         var response = await _function.Run(mockRequest.Object, "   ");
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
         _mockDataStore.Verify(d => d.GetByIdAsync(It.IsAny<string>()), Times.Never);
     }
 
     [Fact]
     public async Task Run_InvalidCharacters_Returns400()
     {
-        // Arrange
+        // Arrange - matches TypeScript: if (sanitisedId !== id) return 400
         var branchName = "../../etc/passwd";
-        var sanitizedBranch = ""; // Sanitiser removes all invalid chars
+        var sanitizedBranch = "etcpasswd"; // Sanitiser changes the input
 
         _mockSanitiser.Setup(s => s.Sanitise(branchName)).Returns(sanitizedBranch);
         var mockRequest = CreateMockHttpRequest();
@@ -104,7 +105,7 @@ public class GetCvFunctionTests
         var response = await _function.Run(mockRequest.Object, branchName);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest, "sanitization changed input - should reject");
         _mockDataStore.Verify(d => d.GetByIdAsync(It.IsAny<string>()), Times.Never);
     }
 
@@ -123,7 +124,7 @@ public class GetCvFunctionTests
         var response = await _function.Run(mockRequest.Object, branchName);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
         _mockDataStore.Verify(d => d.GetByIdAsync(branchName), Times.Once);
         _mockRazorEngine.Verify(r => r.CompileRenderAsync(It.IsAny<string>(), It.IsAny<object>(), null), Times.Never);
     }
@@ -144,20 +145,20 @@ public class GetCvFunctionTests
         var response = await _function.Run(mockRequest.Object, branchName);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
+        response.StatusCode.ShouldBe(HttpStatusCode.InternalServerError);
     }
 
     [Theory]
-    [InlineData("feature-branch", "feature-branch")]
-    [InlineData("release_v1", "release_v1")]
-    [InlineData("hotfix/bug-123", "hotfixbug-123")]
-    public async Task Run_VariousBranchNames_SanitizesCorrectly(string input, string sanitized)
+    [InlineData("feature123", "feature123")] // Valid - unchanged
+    [InlineData("main", "main")]             // Valid - unchanged
+    [InlineData("PRODUCTION", "PRODUCTION")] // Valid - unchanged
+    public async Task Run_ValidBranchNames_Succeeds(string branchName, string sanitized)
     {
-        // Arrange
+        // Arrange - sanitization doesn't change the input, so it's valid
         var cvData = CreateSampleCv();
         var expectedHtml = "<html><body>CV Content</body></html>";
 
-        _mockSanitiser.Setup(s => s.Sanitise(input)).Returns(sanitized);
+        _mockSanitiser.Setup(s => s.Sanitise(branchName)).Returns(sanitized);
         _mockDataStore.Setup(d => d.GetByIdAsync(sanitized)).ReturnsAsync(cvData);
         _mockRazorEngine.Setup(r => r.CompileRenderAsync("CvTemplate", cvData, null))
             .ReturnsAsync(expectedHtml);
@@ -165,54 +166,67 @@ public class GetCvFunctionTests
         var mockRequest = CreateMockHttpRequest();
 
         // Act
+        var response = await _function.Run(mockRequest.Object, branchName);
+
+        // Assert
+        response.StatusCode.ShouldBe(HttpStatusCode.OK, "unchanged by sanitization - should accept");
+        _mockSanitiser.Verify(s => s.Sanitise(branchName), Times.Once);
+        _mockDataStore.Verify(d => d.GetByIdAsync(sanitized), Times.Once);
+    }
+
+    [Theory]
+    [InlineData("feature-branch", "featurebranch")] // Changed - reject
+    [InlineData("release_v1", "releasev1")]         // Changed - reject
+    [InlineData("hotfix/bug-123", "hotfixbug123")]  // Changed - reject
+    public async Task Run_InvalidBranchNames_Returns400(string input, string sanitized)
+    {
+        // Arrange - sanitization CHANGES the input, so reject (matches TypeScript logic)
+        _mockSanitiser.Setup(s => s.Sanitise(input)).Returns(sanitized);
+        var mockRequest = CreateMockHttpRequest();
+
+        // Act
         var response = await _function.Run(mockRequest.Object, input);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest, "sanitization changed input - should reject");
         _mockSanitiser.Verify(s => s.Sanitise(input), Times.Once);
-        _mockDataStore.Verify(d => d.GetByIdAsync(sanitized), Times.Once);
+        _mockDataStore.Verify(d => d.GetByIdAsync(It.IsAny<string>()), Times.Never, "should not call dataStore if validation fails");
     }
 
     [Fact]
     public void Constructor_NullDataStore_ThrowsArgumentNullException()
     {
-        // Act
-        Action act = () => new GetCvFunction(
-            null!,
-            _mockSanitiser.Object,
-            _mockRazorEngine.Object,
-            _mockLogger.Object);
-
-        // Assert
-        act.Should().Throw<ArgumentNullException>().WithParameterName("dataStore");
+        // Act & Assert
+        Should.Throw<ArgumentNullException>(() => new GetCvFunction(
+                null!,
+                _mockSanitiser.Object,
+                _mockRazorEngine.Object,
+                _mockLogger.Object))
+            .ParamName.ShouldBe("dataStore");
     }
 
     [Fact]
     public void Constructor_NullSanitiser_ThrowsArgumentNullException()
     {
-        // Act
-        Action act = () => new GetCvFunction(
-            _mockDataStore.Object,
-            null!,
-            _mockRazorEngine.Object,
-            _mockLogger.Object);
-
-        // Assert
-        act.Should().Throw<ArgumentNullException>().WithParameterName("sanitiser");
+        // Act & Assert
+        Should.Throw<ArgumentNullException>(() => new GetCvFunction(
+                _mockDataStore.Object,
+                null!,
+                _mockRazorEngine.Object,
+                _mockLogger.Object))
+            .ParamName.ShouldBe("sanitiser");
     }
 
     [Fact]
     public void Constructor_NullRazorEngine_ThrowsArgumentNullException()
     {
-        // Act
-        Action act = () => new GetCvFunction(
-            _mockDataStore.Object,
-            _mockSanitiser.Object,
-            null!,
-            _mockLogger.Object);
-
-        // Assert
-        act.Should().Throw<ArgumentNullException>().WithParameterName("razorEngine");
+        // Act & Assert
+        Should.Throw<ArgumentNullException>(() => new GetCvFunction(
+                _mockDataStore.Object,
+                _mockSanitiser.Object,
+                null!,
+                _mockLogger.Object))
+            .ParamName.ShouldBe("razorEngine");
     }
 
     // Helper Methods

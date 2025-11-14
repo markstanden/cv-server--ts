@@ -10,8 +10,8 @@ var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
     .ConfigureServices(services =>
     {
-        // Register sanitiser (permissive mode allows hyphens and underscores in branch names)
-        services.AddSingleton<ISanitiser>(sp => AlphaNumericSanitiser.Permissive());
+        // Register sanitiser (strict mode - alphanumeric only, matches TypeScript OnlyAlphas.strict())
+        services.AddSingleton<ISanitiser>(sp => AlphaNumericSanitiser.Strict());
 
         // Register GitHub data store (from environment variables)
         services.AddSingleton<IDataStore<Cv>>(sp => GitHubDataStore.CreateFromEnvironment());

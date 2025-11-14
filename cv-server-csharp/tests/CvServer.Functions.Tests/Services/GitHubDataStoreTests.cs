@@ -1,5 +1,5 @@
 using CvServer.Functions.Services;
-using FluentAssertions;
+using Shouldly;
 using Xunit;
 
 namespace CvServer.Functions.Tests.Services;
@@ -13,34 +13,25 @@ public class GitHubDataStoreTests
     [Fact]
     public void Constructor_NullOwner_ThrowsArgumentException()
     {
-        // Act
-        Action act = () => new GitHubDataStore(null!, "repo", "token");
-
-        // Assert
-        act.Should().Throw<ArgumentException>()
-            .WithMessage("*owner*");
+        // Act & Assert
+        Should.Throw<ArgumentException>(() => new GitHubDataStore(null!, "repo", "token"))
+            .Message.ShouldContain("owner");
     }
 
     [Fact]
     public void Constructor_NullRepository_ThrowsArgumentException()
     {
-        // Act
-        Action act = () => new GitHubDataStore("owner", null!, "token");
-
-        // Assert
-        act.Should().Throw<ArgumentException>()
-            .WithMessage("*repository*");
+        // Act & Assert
+        Should.Throw<ArgumentException>(() => new GitHubDataStore("owner", null!, "token"))
+            .Message.ShouldContain("repository");
     }
 
     [Fact]
     public void Constructor_NullToken_ThrowsArgumentException()
     {
-        // Act
-        Action act = () => new GitHubDataStore("owner", "repo", null!);
-
-        // Assert
-        act.Should().Throw<ArgumentException>()
-            .WithMessage("*token*");
+        // Act & Assert
+        Should.Throw<ArgumentException>(() => new GitHubDataStore("owner", "repo", null!))
+            .Message.ShouldContain("token");
     }
 
     [Fact]
@@ -50,7 +41,7 @@ public class GitHubDataStoreTests
         var store = new GitHubDataStore("owner", "repo", "token");
 
         // Assert
-        store.Should().NotBeNull();
+        store.ShouldNotBeNull();
     }
 
     [Fact]
@@ -60,7 +51,7 @@ public class GitHubDataStoreTests
         var store = new GitHubDataStore("owner", "repo", "token", "subdir", "custom.json");
 
         // Assert
-        store.Should().NotBeNull();
+        store.ShouldNotBeNull();
     }
 
     [Fact]
@@ -69,12 +60,8 @@ public class GitHubDataStoreTests
         // Arrange
         var store = new GitHubDataStore("owner", "repo", "token");
 
-        // Act
-        Func<Task> act = async () => await store.GetByIdAsync(null!);
-
-        // Assert
-        await act.Should().ThrowAsync<ArgumentException>()
-            .WithMessage("*branchName*");
+        // Act & Assert
+        await Should.ThrowAsync<ArgumentException>(async () => await store.GetByIdAsync(null!));
     }
 
     [Fact]
@@ -83,12 +70,8 @@ public class GitHubDataStoreTests
         // Arrange
         var store = new GitHubDataStore("owner", "repo", "token");
 
-        // Act
-        Func<Task> act = async () => await store.GetByIdAsync(string.Empty);
-
-        // Assert
-        await act.Should().ThrowAsync<ArgumentException>()
-            .WithMessage("*branchName*");
+        // Act & Assert
+        await Should.ThrowAsync<ArgumentException>(async () => await store.GetByIdAsync(string.Empty));
     }
 
     [Fact]
@@ -99,12 +82,9 @@ public class GitHubDataStoreTests
         Environment.SetEnvironmentVariable("GITHUB_REPO", "repo");
         Environment.SetEnvironmentVariable("GITHUB_API_KEY", "token");
 
-        // Act
-        Action act = () => GitHubDataStore.CreateFromEnvironment();
-
-        // Assert
-        act.Should().Throw<InvalidOperationException>()
-            .WithMessage("*GITHUB_USERNAME*");
+        // Act & Assert
+        Should.Throw<InvalidOperationException>(() => GitHubDataStore.CreateFromEnvironment())
+            .Message.ShouldContain("GITHUB_USERNAME");
 
         // Cleanup
         Environment.SetEnvironmentVariable("GITHUB_REPO", null);

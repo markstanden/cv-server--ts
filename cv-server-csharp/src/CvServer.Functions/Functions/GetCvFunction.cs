@@ -54,23 +54,19 @@ public class GetCvFunction
         }
 
         // Sanitize branch name to prevent path traversal and injection attacks
+        // Matches TypeScript logic: if sanitization changes the input, reject it
         var sanitizedBranchName = _sanitiser.Sanitise(branchName);
-
-        if (string.IsNullOrWhiteSpace(sanitizedBranchName))
-        {
-            _logger.LogWarning("Branch name contained only invalid characters: {BranchName}", branchName);
-            return await CreateErrorResponse(
-                req,
-                HttpStatusCode.BadRequest,
-                "Branch name contains invalid characters");
-        }
 
         if (sanitizedBranchName != branchName)
         {
             _logger.LogWarning(
-                "Branch name was sanitized from '{Original}' to '{Sanitized}'",
+                "Invalid ID format - sanitization changed input from '{Original}' to '{Sanitized}'",
                 branchName,
                 sanitizedBranchName);
+            return await CreateErrorResponse(
+                req,
+                HttpStatusCode.BadRequest,
+                "Invalid ID format");
         }
 
         try

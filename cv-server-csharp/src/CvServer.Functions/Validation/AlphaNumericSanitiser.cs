@@ -1,70 +1,60 @@
-using System.Text;
 using System.Text.RegularExpressions;
 using CvServer.Functions.Interfaces;
 
 namespace CvServer.Functions.Validation;
 
 /// <summary>
-/// Sanitizes input strings by removing all characters except alphanumerics and optionally hyphens/underscores
+/// Sanitizes input strings by filtering characters based on a matcher pattern
+/// C# port of TypeScript OnlyAlphas class using split-filter-join approach
 /// This prevents path traversal, command injection, and other input-based attacks
 /// </summary>
-public partial class AlphaNumericSanitiser : ISanitiser
+public class AlphaNumericSanitiser : ISanitiser
 {
-    private readonly bool _allowHyphens;
-    private readonly bool _allowUnderscores;
-    private readonly Regex _sanitizationRegex;
+    private static readonly Regex BaseMatcher = new("[a-zA-Z0-9]", RegexOptions.Compiled);
+    private readonly Regex _matcher;
 
     /// <summary>
-    /// Creates a new sanitiser with configurable character allowances
+    /// Creates a new sanitiser with the specified matcher pattern
     /// </summary>
-    /// <param name="allowHyphens">Whether to allow hyphen (-) characters</param>
-    /// <param name="allowUnderscores">Whether to allow underscore (_) characters</param>
-    public AlphaNumericSanitiser(bool allowHyphens = true, bool allowUnderscores = true)
+    /// <param name="matcher">Regex pattern to match allowed characters</param>
+    private AlphaNumericSanitiser(Regex? matcher = null)
     {
-        _allowHyphens = allowHyphens;
-        _allowUnderscores = allowUnderscores;
-        _sanitizationRegex = BuildRegex(allowHyphens, allowUnderscores);
+        _matcher = matcher ?? BaseMatcher;
     }
 
     /// <summary>
-    /// Removes all characters except alphanumerics and configured special characters
+    /// Filters input string to only include characters matching the configured pattern
+    /// TypeScript equivalent: input.split('').filter(letter => letter.match(matcher)).join('')
     /// </summary>
     /// <param name="input">Input string to sanitize</param>
-    /// <returns>Sanitized string safe for use in file paths, branch names, etc.</returns>
+    /// <returns>Sanitized string containing only allowed characters</returns>
     /// <exception cref="ArgumentNullException">Thrown when input is null</exception>
     public string Sanitise(string input)
     {
         ArgumentNullException.ThrowIfNull(input);
 
-        return _sanitizationRegex.Replace(input, string.Empty);
-    }
-
-    /// <summary>
-    /// Builds a regex pattern based on allowed characters
-    /// Uses source-generated regex for performance (.NET 7+)
-    /// </summary>
-    private static Regex BuildRegex(bool allowHyphens, bool allowUnderscores)
-    {
-        var pattern = new StringBuilder("[^a-zA-Z0-9");
-
-        if (allowHyphens)
-            pattern.Append('-');
-
-        if (allowUnderscores)
-            pattern.Append('_');
-
-        pattern.Append(']');
-
-        return new Regex(pattern.ToString(), RegexOptions.Compiled);
+        // Match TypeScript filter approach: split, filter by matcher, join
+        return string.Concat(
+            input.Where(c => _matcher.IsMatch(c.ToString()))
+        );
     }
 
     /// <summary>
     /// Factory method: Creates a strict sanitiser (alphanumeric only)
+    /// TypeScript equivalent: OnlyAlphas.strict()
     /// </summary>
-    public static AlphaNumericSanitiser Strict() => new(allowHyphens: false, allowUnderscores: false);
+    public static AlphaNumericSanitiser Strict() => new();
 
     /// <summary>
-    /// Factory method: Creates a permissive sanitiser (allows hyphens and underscores)
+    /// Factory method: Creates a sanitiser with additional allowed characters
+    /// TypeScript equivalent: OnlyAlphas.and(additionalMatchers)
     /// </summary>
-    public static AlphaNumericSanitiser Permissive() => new(allowHyphens: true, allowUnderscores: true);
+    /// <param name="additionalPattern">Additional regex pattern (e.g., "[-_]" for hyphens and underscores)</param>
+    public static AlphaNumericSanitiser And(string additionalPattern)
+    {
+        // Combine: (baseMatcher|additionalPattern) - matches TypeScript OR logic
+        var combinedPattern = $"({BaseMatcher}|{additionalPattern})";
+        var combinedMatcher = new Regex(combinedPattern, RegexOptions.Compiled);
+        return new AlphaNumericSanitiser(combinedMatcher);
+    }
 }
