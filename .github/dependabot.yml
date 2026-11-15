@@ -1,0 +1,42 @@
+# Dependabot version updates for the npm tree. Security updates are a separate
+# repository setting (Settings > Code security > Dependabot security updates)
+# and open their own PRs from the advisory feed.
+#
+# Deliberate choices:
+#
+# - Weekly, not daily: this repo has one runtime dependency and eight dev ones,
+#   and every PR costs a full gate run. One grouped PR a week is enough.
+# - Minor and patch share a group, so they arrive as a single PR and get one
+#   gate verdict. A floating `*` group would sweep majors in with them, which
+#   is how TypeScript 7 and Vitest 5 landed here: both needed config
+#   migrations, so they deserve a PR of their own.
+# - No github-actions ecosystem: .github/workflows/defined--verify.yml is a
+#   managed file that `defined verify` checks byte-identical, so a SHA bump
+#   there would fail the gate and be reverted by the next `comply`. Those pins
+#   move upstream in markstanden/defined.
+
+version: 2
+
+updates:
+    - package-ecosystem: "npm"
+      directory: "/"
+      schedule:
+          interval: "weekly"
+          day: "monday"
+          time: "07:00"
+          timezone: "Europe/London"
+      open-pull-requests-limit: 5
+      commit-message:
+          prefix: "bumps"
+      groups:
+          minor-and-patch:
+              applies-to: version-updates
+              update-types:
+                  - "minor"
+                  - "patch"
+          security:
+              applies-to: security-updates
+              patterns:
+                  - "*"
+      cooldown:
+          default-days: 7
