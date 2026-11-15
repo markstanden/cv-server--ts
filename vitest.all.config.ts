@@ -7,6 +7,5 @@ export default defineConfig({
         include: ["{netlify,src}/**/*.{test,spec}.?(c|m)[jt]s?(x)"],
         exclude: [],
         globals: false,
-        environmentMatchGlobs: [["**/*.component-test.ts", "happy-dom"]],
     },
 });
