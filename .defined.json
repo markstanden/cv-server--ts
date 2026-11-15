@@ -1,0 +1,9 @@
+{
+    "version": "07145f9e654d",
+    "node": {
+        "checks": [
+            { "name": "test", "command": "npm run vitest-unit-only" },
+            { "name": "build", "command": "npm run build" }
+        ]
+    }
+}

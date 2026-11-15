@@ -1,12 +1,13 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from "tailwindcss";
 
 const config: Config = {
-    content: ['index.html', 'src/**/*.{js,ts,jsx,tsx}'],
+    content: ["index.html", "src/**/*.{js,ts,jsx,tsx}"],
     plugins: [],
     theme: {
         fontFamily: {
-            main: ['var(--font-family-main)', 'ui-sans-serif'],
+            main: ["var(--font-family-main)", "ui-sans-serif"],
         },
     },
 };
+/** Tailwind build configuration for the CV page. */
 export default config;

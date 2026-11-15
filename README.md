@@ -30,17 +30,18 @@ To access private repositories, you'll need a GitHub Personal Access Token (PAT)
 5. Name your token something meaningful like "CV Server Access"
 6. Set the expiration as needed
 7. Select only these permissions:
-   - `repo` - Full control of private repositories
-   OR if you prefer minimal permissions:
-   - `repo:status`
-   - `repo_deployment`
-   - `public_repo`
-   - `repo:invite`
-   - `security_events`
+    - `repo` - Full control of private repositories
+      OR if you prefer minimal permissions:
+    - `repo:status`
+    - `repo_deployment`
+    - `public_repo`
+    - `repo:invite`
+    - `security_events`
 8. Click "Generate token"
 9. Copy the token immediately - you won't be able to see it again!
 
 **Important Note About Token Expiration**: When your Personal Access Token expires, the CV server will be unable to fetch data from GitHub, resulting in a blank page. Make sure to:
+
 - Set a calendar reminder before the token expires
 - Generate and update the token in your environment variables before expiration
 - Consider using a longer expiration time for production deployments
@@ -48,18 +49,21 @@ To access private repositories, you'll need a GitHub Personal Access Token (PAT)
 ## Getting Started
 
 1. Clone the repository:
+
 ```bash
 git clone <your-repo-url>
 cd cv-server
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Set up environment variables:
-Create a `.env` file in the root directory with the following variables:
+   Create a `.env` file in the root directory with the following variables:
+
 ```env
 GITHUB_USERNAME=your-username
 GITHUB_REPO=your-cv-data-repo
@@ -69,6 +73,7 @@ GITHUB_REPO_FILENAME=cv-data.json
 ```
 
 4. Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -89,17 +94,19 @@ src/
 ## Strategic Benefits
 
 ### Git-Based CV Management
+
 - Store different versions of your CV for different roles/employers using Git branches
 - Track changes to your CV over time with full version control
 - Easily revert changes or merge updates across different versions
 - Use Git's branching strategy to maintain multiple versions:
-   - Keep a `main` branch with your full, generic CV
-   - Create branches for specific companies or roles
-   - Cherry-pick relevant experience and tailor content for each application
-   - Maintain a history of all your applications and iterations
+    - Keep a `main` branch with your full, generic CV
+    - Create branches for specific companies or roles
+    - Cherry-pick relevant experience and tailor content for each application
+    - Maintain a history of all your applications and iterations
 
 **Important Note About Branch Names**:
 The branch name becomes part of the final URL (e.g., `cv.example.com/branch-name`). Choose professional, clean branch names that you're comfortable sharing with employers. For example:
+
 - ✓ `canonical` - Good for your main/default CV
 - ✓ `frontend-dev` - Good for a role-specific CV
 - ✓ `tech-lead-2024` - Good for a specific position
@@ -107,6 +114,7 @@ The branch name becomes part of the final URL (e.g., `cv.example.com/branch-name
 - ✗ `quick-draft` - Avoid temporary/working branch names
 
 ### Private Data Management
+
 - Keep your CV data private in a separate GitHub repository
 - Share only the rendered version, not your personal data
 - Update contact details or personal information in one place
@@ -117,17 +125,17 @@ The branch name becomes part of the final URL (e.g., `cv.example.com/branch-name
 The CV server generates two main pages:
 
 1. A cover letter page that includes:
-   - Your contact details in a right-aligned header
-   - A formal letter format with greeting, body paragraphs, and sign-off
-   - Professional spacing and typography
+    - Your contact details in a right-aligned header
+    - A formal letter format with greeting, body paragraphs, and sign-off
+    - Professional spacing and typography
 
 ![screenshot illustrating the cover letter's professional look and feel](documentation/readme/screenshots/cover-letter.jpg "Cover Letter")
 
 2. A CV page that includes:
-   - Your name and contact details in a clean header
-   - Work experience with indented content and clear date positioning
-   - Skills and education in a structured format
-   - Project links and descriptions
+    - Your name and contact details in a clean header
+    - Work experience with indented content and clear date positioning
+    - Skills and education in a structured format
+    - Project links and descriptions
 
 ![screenshot illustrating the cv's clean, concise design](documentation/readme/screenshots/cv.jpg "CV")
 
@@ -270,12 +278,7 @@ Here's a complete example of the expected data structure (remove comments in you
                 },
                 {
                     "title": "Technologies",
-                    "content": [
-                        "React,",
-                        "Node.js,",
-                        "Docker,",
-                        "Git"
-                    ]
+                    "content": ["React,", "Node.js,", "Docker,", "Git"]
                 }
             ]
         },
@@ -285,9 +288,7 @@ Here's a complete example of the expected data structure (remove comments in you
                 {
                     "title": "University Degree",
                     // Can include HTML if needed
-                    "content": [
-                        "BSc Computer Science - Example University"
-                    ],
+                    "content": ["BSc Computer Science - Example University"],
                     // Optional in general sections
                     "dates": "2015 - 2019"
                 }
@@ -314,7 +315,6 @@ Here's a complete example of the expected data structure (remove comments in you
 
 Note: The actual TypeScript interfaces for this structure can be found in `src/types/CV/CV.ts`. The system will validate your JSON against these types at runtime.
 
-
 ## Development
 
 ### Available Scripts
@@ -337,6 +337,7 @@ The project uses Vitest for testing, with separate configurations for unit and i
 ### Code Style
 
 The project uses:
+
 - ESLint for code linting
 - Prettier for code formatting
 - TypeScript for type safety
