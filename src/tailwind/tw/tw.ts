@@ -1,8 +1,12 @@
 /**
- * Identity Tag-function to apply to template literals to signal to
- * tailwind-prettier to reorganise the classnames into tailwind's recommended order.
- * @param {TemplateStringsArray} strings
- * @param {string[]} values
+ * Identity tag function for Tailwind class-name template literals.
+ *
+ * It returns the literal unchanged; the `tw` tag exists so Tailwind tooling
+ * can find and reorder the class names.
+ *
+ * @param strings Literal segments of the template.
+ * @param values Interpolated values.
+ * @returns The assembled class string.
  */
 export const tw = (strings: TemplateStringsArray, ...values: string[]) =>
     String.raw({ raw: strings }, ...values);

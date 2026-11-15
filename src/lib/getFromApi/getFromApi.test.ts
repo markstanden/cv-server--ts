@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { getFromApiFactory } from './getFromApi.ts';
+import { describe, expect, it } from "vitest";
+import { getFromApiFactory } from "./getFromApi.ts";
 
 function fakeFetcher() {
     let calledWith: string | undefined;
@@ -12,28 +12,28 @@ function fakeFetcher() {
     };
 }
 
-describe.concurrent('getCV', async () => {
+describe.concurrent("getCV", async () => {
     describe.each([
-        ['', undefined],
-        [undefined, ''],
+        ["", undefined],
+        [undefined, ""],
         [undefined, undefined],
-        ['', ''],
-        ['/path', 'id'],
-        ['/path', 'id-id'],
-        ['/path', 'id_id'],
-        ['/base-path', 'path'],
-        ['/base_path', 'path'],
-        ['/base-path', 'id-id'],
-        ['/base-path', 'id_id'],
-        ['/base_path', 'id-id'],
-        ['/base_path', 'id_id'],
+        ["", ""],
+        ["/path", "id"],
+        ["/path", "id-id"],
+        ["/path", "id_id"],
+        ["/base-path", "path"],
+        ["/base_path", "path"],
+        ["/base-path", "id-id"],
+        ["/base-path", "id_id"],
+        ["/base_path", "id-id"],
+        ["/base_path", "id_id"],
     ])("calls the fetcher with the path: %s/%s'", async (basePath, path) => {
-        it.concurrent('fetcher called with correct path', async () => {
+        it.concurrent("fetcher called with correct path", async () => {
             const mockFetcher = fakeFetcher();
 
             const getCV = await getFromApiFactory<object>(
                 mockFetcher.fetch,
-                basePath
+                basePath,
             );
             await getCV(path);
 
@@ -41,16 +41,16 @@ describe.concurrent('getCV', async () => {
         });
 
         it.concurrent(
-            'should return return pojo with expected result',
+            "should return return pojo with expected result",
             async ({ expect }) => {
                 const getCV = await getFromApiFactory<{ path: string }>(
                     fakeFetcher().fetch,
-                    basePath
+                    basePath,
                 );
                 const result = await getCV(path);
 
                 expect(result).toMatchObject({ path: `${basePath}/${path}` });
-            }
+            },
         );
     });
 });

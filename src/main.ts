@@ -1,14 +1,14 @@
-import './tailwind/tailwind.css';
-import { renderPage } from './frontend/renderPage/renderPage';
+import "./tailwind/tailwind.css";
+import { renderPage } from "./frontend/renderPage/renderPage";
 
-const app = document.getElementById('app')!;
+const app = document.getElementById("app")!;
 
 function createLoader(): HTMLElement {
-    const loader = document.createElement('div');
-    loader.id = 'page-loader';
-    loader.setAttribute('aria-busy', 'true');
-    loader.setAttribute('aria-live', 'polite');
-    loader.className = 'mx-4 py-10';
+    const loader = document.createElement("div");
+    loader.id = "page-loader";
+    loader.setAttribute("aria-busy", "true");
+    loader.setAttribute("aria-live", "polite");
+    loader.className = "mx-4 py-10";
     loader.innerHTML = `
         <div class="animate-pulse space-y-6">
             <div class="h-8 bg-gray-200 rounded w-1/3"></div>
@@ -23,8 +23,8 @@ function createLoader(): HTMLElement {
     return loader;
 }
 
-addEventListener('DOMContentLoaded', async () => {
-    const key = window.location.pathname.split('/')[1];
+addEventListener("DOMContentLoaded", async () => {
+    const key = window.location.pathname.split("/")[1];
 
     // Insert a lightweight skeleton while data loads
     const loader = createLoader();

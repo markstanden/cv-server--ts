@@ -1,3 +1,4 @@
-import { ReadOnlyDataStore } from './ReadOnlyDataStore.ts';
+import { ReadOnlyDataStore } from "./ReadOnlyDataStore.ts";
 
-export interface DataStore<Type> extends ReadOnlyDataStore<Type> {}
+/** Read-only store alias kept for callers that do not need write access. */
+export type DataStore<Type> = ReadOnlyDataStore<Type>;

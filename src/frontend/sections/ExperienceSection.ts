@@ -1,7 +1,8 @@
-import { Experience, Location } from '../../types/CV/CV.ts';
-import { Section } from './Section.ts';
-import { tw } from '../../tailwind/tw/tw.ts';
+import { Experience, Location } from "../../types/CV/CV.ts";
+import { Section } from "./Section.ts";
+import { tw } from "../../tailwind/tw/tw.ts";
 
+/** Renders the professional-history section. */
 export class ExperienceSection implements Section {
     private readonly title: string;
     private readonly items: {
@@ -16,15 +17,23 @@ export class ExperienceSection implements Section {
         content: string[];
     }[];
 
+    /** Binds the experience payload used by the render pass. */
     constructor({ title, items }: Experience) {
         this.title = title;
         this.items = items;
     }
 
+    /**
+     * Creates the section from its CV payload.
+     *
+     * @param experience Experience content to render.
+     * @returns The configured section.
+     */
     static create(experience: Experience) {
         return new ExperienceSection(experience);
     }
 
+    /** Renders the roles as a heading and a list of articles. */
     render() {
         return Section.createSection(`
         <h2 class="${tw`mb-1 mt-6 border-b-2 border-b-indigo-700 text-xl/8 print:mt-1 print:text-base/6`}">${this.title}</h2>
@@ -45,12 +54,12 @@ export class ExperienceSection implements Section {
                 <ul class="${tw`ml-0.5 border-l-2 border-indigo-700 pl-2 sm:border-l-2 print:text-xs/4`}">
                 ${item.content
                     .map((point) => `<li class="${tw``}">${point}</li>`)
-                    .join('')}
+                    .join("")}
                 </ul>
             </article> 
-        `
+        `,
             )
-            .join('')}
+            .join("")}
             
        `);
     }

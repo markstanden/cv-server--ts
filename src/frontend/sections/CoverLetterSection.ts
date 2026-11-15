@@ -1,7 +1,8 @@
-import { CoverLetter, Location, UserData } from '../../types/CV/CV.ts';
-import { Section } from './Section.ts';
-import { tw } from '../../tailwind/tw/tw.ts';
+import { CoverLetter, Location, UserData } from "../../types/CV/CV.ts";
+import { Section } from "./Section.ts";
+import { tw } from "../../tailwind/tw/tw.ts";
 
+/** Renders the opening letter and the applicant's postal address. */
 export class CoverLetterSection implements Section {
     private readonly name: string;
     private readonly location: Location;
@@ -10,9 +11,10 @@ export class CoverLetterSection implements Section {
     private readonly text: string[];
     private readonly signOff: string;
 
+    /** Binds the letter and identity data used by the render pass. */
     constructor(
         { greeting, text, signOff }: CoverLetter,
-        { name, location, contact }: UserData
+        { name, location, contact }: UserData,
     ) {
         this.name = name;
         this.location = location;
@@ -22,10 +24,18 @@ export class CoverLetterSection implements Section {
         this.signOff = signOff;
     }
 
+    /**
+     * Creates the section from its CV payload.
+     *
+     * @param coverLetter Letter content to render.
+     * @param userData Identity data supplying the address block.
+     * @returns The configured section.
+     */
     static create(coverLetter: CoverLetter, userData: UserData) {
         return new CoverLetterSection(coverLetter, userData);
     }
 
+    /** Renders the letter as an article element. */
     render() {
         return Section.createSection(`
             <article class="${tw`avoid-page-break mx-auto mb-20 flex max-w-4xl flex-col self-center print:mb-0 print:break-after-page print:text-sm`}">
@@ -52,7 +62,7 @@ export class CoverLetterSection implements Section {
                             </p> 
                         `;
                         })
-                        .join('')}
+                        .join("")}
                 </div>
                 <p class="mt-8">${this.signOff}</p>
                 <p>${this.name}</p>

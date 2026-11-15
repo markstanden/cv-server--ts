@@ -1,13 +1,15 @@
-import { Link, Location, UserData } from '../../types/CV/CV.ts';
-import { Section } from './Section.ts';
-import { tw } from '../../tailwind/tw/tw.ts';
+import { Link, Location, UserData } from "../../types/CV/CV.ts";
+import { Section } from "./Section.ts";
+import { tw } from "../../tailwind/tw/tw.ts";
 
+/** Renders the applicant header: name, location, contact details and links. */
 export class UserDataSection implements Section {
     private readonly name: string;
     private readonly location: Location;
     private readonly contact: { phone: string; email: string };
     private readonly links: Link[];
 
+    /** Binds the identity payload used by the render pass. */
     constructor({ name, location, contact, links }: UserData) {
         this.name = name;
         this.location = location;
@@ -15,10 +17,17 @@ export class UserDataSection implements Section {
         this.links = links;
     }
 
+    /**
+     * Creates the section from its CV payload.
+     *
+     * @param userData Identity content to render.
+     * @returns The configured section.
+     */
     static create(userData: UserData) {
         return new UserDataSection(userData);
     }
 
+    /** Renders the header element. */
     render() {
         return Section.createSection(
             `
@@ -49,17 +58,17 @@ export class UserDataSection implements Section {
                                     return `
                                    <li class="${tw`inline-grid grid-cols-2 gap-4`}">
                                         <strong class="${tw`font-bold sm:text-right`}">${link.title}:</strong>
-                                        <a class="${tw`break-words sm:text-right print:whitespace-break-spaces`}" href="${link.url}">${link.url.split('//')[1]}</a>
+                                        <a class="${tw`break-words sm:text-right print:whitespace-break-spaces`}" href="${link.url}">${link.url.split("//")[1]}</a>
                                     </li> 
                                 `;
                                 })
-                                .join('')}
+                                .join("")}
                         </ul>
                     </nav>
                     
                 </section>
         `,
-            'header'
+            "header",
         );
     }
 }

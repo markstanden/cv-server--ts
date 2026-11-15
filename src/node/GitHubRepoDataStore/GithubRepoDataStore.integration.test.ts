@@ -1,26 +1,26 @@
-import { describe, expect, it } from 'vitest';
-import { GithubRepoDataStore } from './GithubRepoDataStore.ts';
-import { CV } from '../../types/CV/CV.ts';
+import { describe, expect, it } from "vitest";
+import { GithubRepoDataStore } from "./GithubRepoDataStore.ts";
+import { CV } from "../../types/CV/CV.ts";
 
 function makeGithubDataStoreFromEnvironment<TYPE>() {
     return new GithubRepoDataStore<TYPE>({
-        userName: process.env['GITHUB_USERNAME'] ?? '',
-        repoName: process.env['GITHUB_REPO'] ?? '',
-        basePath: process.env['GITHUB_REPO_DIRECTORY'] ?? '',
-        filename: process.env['GITHUB_REPO_FILENAME'] ?? '',
-        apiKey: process.env['GITHUB_API_KEY'] ?? '',
+        userName: process.env["GITHUB_USERNAME"] ?? "",
+        repoName: process.env["GITHUB_REPO"] ?? "",
+        basePath: process.env["GITHUB_REPO_DIRECTORY"] ?? "",
+        filename: process.env["GITHUB_REPO_FILENAME"] ?? "",
+        apiKey: process.env["GITHUB_API_KEY"] ?? "",
     });
 }
 
 function getTargetBranchFromEnvironment() {
-    return process.env['GITHUB_TEST_BRANCH'] ?? '';
+    return process.env["GITHUB_TEST_BRANCH"] ?? "";
 }
 
-describe.concurrent('GithubRepoDataStore', async () => {
+describe.concurrent("GithubRepoDataStore", async () => {
     describe.concurrent(
-        'with a correct branch name fetches test data',
+        "with a correct branch name fetches test data",
         async () => {
-            it.concurrent('should fetch CV data', async ({ expect }) => {
+            it.concurrent("should fetch CV data", async ({ expect }) => {
                 const githubDataStore =
                     makeGithubDataStoreFromEnvironment<CV>();
                 const id = getTargetBranchFromEnvironment();
@@ -34,27 +34,27 @@ describe.concurrent('GithubRepoDataStore', async () => {
                     sections: {},
                 });
             });
-        }
+        },
     );
 
     describe.concurrent(
-        'check required environment variables are available',
+        "check required environment variables are available",
         async () => {
             it.each([
-                'GITHUB_USERNAME',
-                'GITHUB_REPO',
-                'GITHUB_API_KEY',
-                'GITHUB_REPO_DIRECTORY',
-                'GITHUB_REPO_FILENAME',
-                'GITHUB_TEST_BRANCH',
+                "GITHUB_USERNAME",
+                "GITHUB_REPO",
+                "GITHUB_API_KEY",
+                "GITHUB_REPO_DIRECTORY",
+                "GITHUB_REPO_FILENAME",
+                "GITHUB_TEST_BRANCH",
             ])(
-                'environment variable %s should be available',
+                "environment variable %s should be available",
                 async (envKey) => {
                     const result = process.env[envKey];
 
                     expect(result).toBeTruthy();
-                }
+                },
             );
-        }
+        },
     );
 });
